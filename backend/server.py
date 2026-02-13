@@ -109,7 +109,7 @@ class Job(BaseModel):
     client_id: str
     title: str
     description: str
-    category: Literal["handy_work", "professional_services"]
+    category: Literal["handy_work", "development_it", "ai_services", "data_science", "design_creative", "writing_translation", "sales_marketing", "admin_support", "finance_accounting", "hr_training", "legal", "engineering_architecture"]
     subcategory: str
     budget_type: Literal["hourly", "fixed"]
     budget_amount: float
@@ -123,7 +123,7 @@ class Job(BaseModel):
 class JobCreate(BaseModel):
     title: str
     description: str
-    category: Literal["handy_work", "professional_services"]
+    category: Literal["handy_work", "development_it", "ai_services", "data_science", "design_creative", "writing_translation", "sales_marketing", "admin_support", "finance_accounting", "hr_training", "legal", "engineering_architecture"]
     subcategory: str
     budget_type: Literal["hourly", "fixed"]
     budget_amount: float

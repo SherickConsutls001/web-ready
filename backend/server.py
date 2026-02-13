@@ -1,72 +1,480 @@
-from fastapi import FastAPI, APIRouter
+from fastapi import FastAPI, APIRouter, HTTPException, Depends, status
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 import os
 import logging
 from pathlib import Path
-from pydantic import BaseModel, Field, ConfigDict
-from typing import List
+from pydantic import BaseModel, Field, EmailStr, ConfigDict
+from typing import List, Optional, Literal
 import uuid
-from datetime import datetime, timezone
-
+from datetime import datetime, timezone, timedelta
+import jwt
+from passlib.context import CryptContext
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
-# MongoDB connection
 mongo_url = os.environ['MONGO_URL']
 client = AsyncIOMotorClient(mongo_url)
 db = client[os.environ['DB_NAME']]
 
-# Create the main app without a prefix
 app = FastAPI()
-
-# Create a router with the /api prefix
 api_router = APIRouter(prefix="/api")
 
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+security = HTTPBearer()
 
-# Define Models
-class StatusCheck(BaseModel):
-    model_config = ConfigDict(extra="ignore")  # Ignore MongoDB's _id field
-    
+JWT_SECRET = os.environ.get('JWT_SECRET', 'your-secret-key-change-in-production')
+JWT_ALGORITHM = "HS256"
+JWT_EXPIRATION_HOURS = 72
+
+# ===== MODELS =====
+
+class UserRegister(BaseModel):
+    email: EmailStr
+    password: str
+    full_name: str
+    user_type: Literal["client", "worker"]
+
+class UserLogin(BaseModel):
+    email: EmailStr
+    password: str
+
+class User(BaseModel):
+    model_config = ConfigDict(extra="ignore")
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
-    client_name: str
-    timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    email: EmailStr
+    full_name: str
+    user_type: Literal["client", "worker"]
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
-class StatusCheckCreate(BaseModel):
-    client_name: str
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+    user: User
 
-# Add your routes to the router instead of directly to app
-@api_router.get("/")
-async def root():
-    return {"message": "Hello World"}
+class WorkerProfile(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    user_id: str
+    title: str
+    bio: str
+    skills: List[str]
+    hourly_rate: float
+    experience_years: int
+    location: str
+    category: Literal["handy_work", "professional_services"]
+    portfolio_links: List[str] = []
+    avatar_url: Optional[str] = None
+    featured: bool = False
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
-@api_router.post("/status", response_model=StatusCheck)
-async def create_status_check(input: StatusCheckCreate):
-    status_dict = input.model_dump()
-    status_obj = StatusCheck(**status_dict)
+class WorkerProfileCreate(BaseModel):
+    title: str
+    bio: str
+    skills: List[str]
+    hourly_rate: float
+    experience_years: int
+    location: str
+    category: Literal["handy_work", "professional_services"]
+    portfolio_links: List[str] = []
+    avatar_url: Optional[str] = None
+
+class ClientProfile(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    user_id: str
+    company_name: str
+    industry: str
+    company_size: Optional[str] = None
+    location: str
+    website: Optional[str] = None
+    logo_url: Optional[str] = None
+    subscription_plan: Literal["free", "professional", "enterprise"] = "free"
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+class ClientProfileCreate(BaseModel):
+    company_name: str
+    industry: str
+    company_size: Optional[str] = None
+    location: str
+    website: Optional[str] = None
+    logo_url: Optional[str] = None
+
+class Job(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    client_id: str
+    title: str
+    description: str
+    category: Literal["handy_work", "professional_services"]
+    subcategory: str
+    budget_type: Literal["hourly", "fixed"]
+    budget_amount: float
+    location: str
+    job_type: Literal["remote", "onsite", "hybrid"]
+    skills_required: List[str]
+    featured: bool = False
+    status: Literal["open", "in_progress", "completed", "closed"] = "open"
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+class JobCreate(BaseModel):
+    title: str
+    description: str
+    category: Literal["handy_work", "professional_services"]
+    subcategory: str
+    budget_type: Literal["hourly", "fixed"]
+    budget_amount: float
+    location: str
+    job_type: Literal["remote", "onsite", "hybrid"]
+    skills_required: List[str]
+
+class Application(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    job_id: str
+    worker_id: str
+    cover_letter: str
+    proposed_rate: float
+    status: Literal["pending", "accepted", "rejected"] = "pending"
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+class ApplicationCreate(BaseModel):
+    job_id: str
+    cover_letter: str
+    proposed_rate: float
+
+# ===== UTILITY FUNCTIONS =====
+
+def hash_password(password: str) -> str:
+    return pwd_context.hash(password)
+
+def verify_password(plain_password: str, hashed_password: str) -> bool:
+    return pwd_context.verify(plain_password, hashed_password)
+
+def create_token(user_id: str, email: str) -> str:
+    expiration = datetime.now(timezone.utc) + timedelta(hours=JWT_EXPIRATION_HOURS)
+    payload = {
+        "sub": user_id,
+        "email": email,
+        "exp": expiration
+    }
+    return jwt.encode(payload, JWT_SECRET, algorithm=JWT_ALGORITHM)
+
+async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(security)) -> dict:
+    try:
+        token = credentials.credentials
+        payload = jwt.decode(token, JWT_SECRET, algorithms=[JWT_ALGORITHM])
+        user_id = payload.get("sub")
+        if not user_id:
+            raise HTTPException(status_code=401, detail="Invalid token")
+        
+        user = await db.users.find_one({"id": user_id}, {"_id": 0})
+        if not user:
+            raise HTTPException(status_code=401, detail="User not found")
+        
+        return user
+    except jwt.ExpiredSignatureError:
+        raise HTTPException(status_code=401, detail="Token expired")
+    except Exception:
+        raise HTTPException(status_code=401, detail="Invalid token")
+
+# ===== AUTH ROUTES =====
+
+@api_router.post("/auth/register", response_model=Token)
+async def register(user_data: UserRegister):
+    existing = await db.users.find_one({"email": user_data.email}, {"_id": 0})
+    if existing:
+        raise HTTPException(status_code=400, detail="Email already registered")
     
-    # Convert to dict and serialize datetime to ISO string for MongoDB
-    doc = status_obj.model_dump()
-    doc['timestamp'] = doc['timestamp'].isoformat()
+    user = User(
+        email=user_data.email,
+        full_name=user_data.full_name,
+        user_type=user_data.user_type
+    )
     
-    _ = await db.status_checks.insert_one(doc)
-    return status_obj
+    user_doc = user.model_dump()
+    user_doc["password_hash"] = hash_password(user_data.password)
+    user_doc["created_at"] = user_doc["created_at"].isoformat()
+    
+    await db.users.insert_one(user_doc)
+    
+    token = create_token(user.id, user.email)
+    return Token(access_token=token, token_type="bearer", user=user)
 
-@api_router.get("/status", response_model=List[StatusCheck])
-async def get_status_checks():
-    # Exclude MongoDB's _id field from the query results
-    status_checks = await db.status_checks.find({}, {"_id": 0}).to_list(1000)
+@api_router.post("/auth/login", response_model=Token)
+async def login(credentials: UserLogin):
+    user = await db.users.find_one({"email": credentials.email}, {"_id": 0})
+    if not user or not verify_password(credentials.password, user["password_hash"]):
+        raise HTTPException(status_code=401, detail="Invalid credentials")
     
-    # Convert ISO string timestamps back to datetime objects
-    for check in status_checks:
-        if isinstance(check['timestamp'], str):
-            check['timestamp'] = datetime.fromisoformat(check['timestamp'])
+    if isinstance(user["created_at"], str):
+        user["created_at"] = datetime.fromisoformat(user["created_at"])
     
-    return status_checks
+    user_obj = User(**{k: v for k, v in user.items() if k != "password_hash"})
+    token = create_token(user_obj.id, user_obj.email)
+    return Token(access_token=token, token_type="bearer", user=user_obj)
 
-# Include the router in the main app
+@api_router.get("/auth/me", response_model=User)
+async def get_me(current_user: dict = Depends(get_current_user)):
+    if isinstance(current_user["created_at"], str):
+        current_user["created_at"] = datetime.fromisoformat(current_user["created_at"])
+    return User(**{k: v for k, v in current_user.items() if k != "password_hash"})
+
+# ===== WORKER PROFILE ROUTES =====
+
+@api_router.post("/workers/profile", response_model=WorkerProfile)
+async def create_worker_profile(profile_data: WorkerProfileCreate, current_user: dict = Depends(get_current_user)):
+    if current_user["user_type"] != "worker":
+        raise HTTPException(status_code=403, detail="Only workers can create worker profiles")
+    
+    existing = await db.worker_profiles.find_one({"user_id": current_user["id"]}, {"_id": 0})
+    if existing:
+        raise HTTPException(status_code=400, detail="Profile already exists")
+    
+    profile = WorkerProfile(user_id=current_user["id"], **profile_data.model_dump())
+    profile_doc = profile.model_dump()
+    profile_doc["created_at"] = profile_doc["created_at"].isoformat()
+    
+    await db.worker_profiles.insert_one(profile_doc)
+    return profile
+
+@api_router.get("/workers/profile", response_model=WorkerProfile)
+async def get_my_worker_profile(current_user: dict = Depends(get_current_user)):
+    profile = await db.worker_profiles.find_one({"user_id": current_user["id"]}, {"_id": 0})
+    if not profile:
+        raise HTTPException(status_code=404, detail="Profile not found")
+    
+    if isinstance(profile["created_at"], str):
+        profile["created_at"] = datetime.fromisoformat(profile["created_at"])
+    return WorkerProfile(**profile)
+
+@api_router.put("/workers/profile", response_model=WorkerProfile)
+async def update_worker_profile(profile_data: WorkerProfileCreate, current_user: dict = Depends(get_current_user)):
+    if current_user["user_type"] != "worker":
+        raise HTTPException(status_code=403, detail="Only workers can update worker profiles")
+    
+    profile = await db.worker_profiles.find_one({"user_id": current_user["id"]}, {"_id": 0})
+    if not profile:
+        raise HTTPException(status_code=404, detail="Profile not found")
+    
+    update_data = profile_data.model_dump()
+    await db.worker_profiles.update_one({"user_id": current_user["id"]}, {"$set": update_data})
+    
+    updated_profile = await db.worker_profiles.find_one({"user_id": current_user["id"]}, {"_id": 0})
+    if isinstance(updated_profile["created_at"], str):
+        updated_profile["created_at"] = datetime.fromisoformat(updated_profile["created_at"])
+    return WorkerProfile(**updated_profile)
+
+@api_router.get("/workers", response_model=List[WorkerProfile])
+async def get_workers(category: Optional[str] = None, skills: Optional[str] = None, location: Optional[str] = None):
+    query = {}
+    if category:
+        query["category"] = category
+    if skills:
+        skill_list = [s.strip() for s in skills.split(",")]
+        query["skills"] = {"$in": skill_list}
+    if location:
+        query["location"] = {"$regex": location, "$options": "i"}
+    
+    workers = await db.worker_profiles.find(query, {"_id": 0}).to_list(100)
+    for worker in workers:
+        if isinstance(worker["created_at"], str):
+            worker["created_at"] = datetime.fromisoformat(worker["created_at"])
+    return [WorkerProfile(**w) for w in workers]
+
+@api_router.get("/workers/{worker_id}", response_model=WorkerProfile)
+async def get_worker_by_id(worker_id: str):
+    worker = await db.worker_profiles.find_one({"id": worker_id}, {"_id": 0})
+    if not worker:
+        raise HTTPException(status_code=404, detail="Worker not found")
+    
+    if isinstance(worker["created_at"], str):
+        worker["created_at"] = datetime.fromisoformat(worker["created_at"])
+    return WorkerProfile(**worker)
+
+# ===== CLIENT PROFILE ROUTES =====
+
+@api_router.post("/clients/profile", response_model=ClientProfile)
+async def create_client_profile(profile_data: ClientProfileCreate, current_user: dict = Depends(get_current_user)):
+    if current_user["user_type"] != "client":
+        raise HTTPException(status_code=403, detail="Only clients can create client profiles")
+    
+    existing = await db.client_profiles.find_one({"user_id": current_user["id"]}, {"_id": 0})
+    if existing:
+        raise HTTPException(status_code=400, detail="Profile already exists")
+    
+    profile = ClientProfile(user_id=current_user["id"], **profile_data.model_dump())
+    profile_doc = profile.model_dump()
+    profile_doc["created_at"] = profile_doc["created_at"].isoformat()
+    
+    await db.client_profiles.insert_one(profile_doc)
+    return profile
+
+@api_router.get("/clients/profile", response_model=ClientProfile)
+async def get_my_client_profile(current_user: dict = Depends(get_current_user)):
+    profile = await db.client_profiles.find_one({"user_id": current_user["id"]}, {"_id": 0})
+    if not profile:
+        raise HTTPException(status_code=404, detail="Profile not found")
+    
+    if isinstance(profile["created_at"], str):
+        profile["created_at"] = datetime.fromisoformat(profile["created_at"])
+    return ClientProfile(**profile)
+
+# ===== JOB ROUTES =====
+
+@api_router.post("/jobs", response_model=Job)
+async def create_job(job_data: JobCreate, current_user: dict = Depends(get_current_user)):
+    if current_user["user_type"] != "client":
+        raise HTTPException(status_code=403, detail="Only clients can post jobs")
+    
+    job = Job(client_id=current_user["id"], **job_data.model_dump())
+    job_doc = job.model_dump()
+    job_doc["created_at"] = job_doc["created_at"].isoformat()
+    
+    await db.jobs.insert_one(job_doc)
+    return job
+
+@api_router.get("/jobs", response_model=List[Job])
+async def get_jobs(
+    category: Optional[str] = None,
+    location: Optional[str] = None,
+    job_type: Optional[str] = None,
+    budget_type: Optional[str] = None
+):
+    query = {"status": "open"}
+    if category:
+        query["category"] = category
+    if location:
+        query["location"] = {"$regex": location, "$options": "i"}
+    if job_type:
+        query["job_type"] = job_type
+    if budget_type:
+        query["budget_type"] = budget_type
+    
+    jobs = await db.jobs.find(query, {"_id": 0}).sort("created_at", -1).to_list(100)
+    for job in jobs:
+        if isinstance(job["created_at"], str):
+            job["created_at"] = datetime.fromisoformat(job["created_at"])
+    return [Job(**j) for j in jobs]
+
+@api_router.get("/jobs/{job_id}", response_model=Job)
+async def get_job_by_id(job_id: str):
+    job = await db.jobs.find_one({"id": job_id}, {"_id": 0})
+    if not job:
+        raise HTTPException(status_code=404, detail="Job not found")
+    
+    if isinstance(job["created_at"], str):
+        job["created_at"] = datetime.fromisoformat(job["created_at"])
+    return Job(**job)
+
+@api_router.get("/jobs/client/my-jobs", response_model=List[Job])
+async def get_my_jobs(current_user: dict = Depends(get_current_user)):
+    if current_user["user_type"] != "client":
+        raise HTTPException(status_code=403, detail="Only clients can view their jobs")
+    
+    jobs = await db.jobs.find({"client_id": current_user["id"]}, {"_id": 0}).sort("created_at", -1).to_list(100)
+    for job in jobs:
+        if isinstance(job["created_at"], str):
+            job["created_at"] = datetime.fromisoformat(job["created_at"])
+    return [Job(**j) for j in jobs]
+
+# ===== APPLICATION ROUTES =====
+
+@api_router.post("/applications", response_model=Application)
+async def create_application(app_data: ApplicationCreate, current_user: dict = Depends(get_current_user)):
+    if current_user["user_type"] != "worker":
+        raise HTTPException(status_code=403, detail="Only workers can apply to jobs")
+    
+    existing = await db.applications.find_one({"job_id": app_data.job_id, "worker_id": current_user["id"]}, {"_id": 0})
+    if existing:
+        raise HTTPException(status_code=400, detail="Already applied to this job")
+    
+    application = Application(worker_id=current_user["id"], **app_data.model_dump())
+    app_doc = application.model_dump()
+    app_doc["created_at"] = app_doc["created_at"].isoformat()
+    
+    await db.applications.insert_one(app_doc)
+    return application
+
+@api_router.get("/applications/my-applications", response_model=List[Application])
+async def get_my_applications(current_user: dict = Depends(get_current_user)):
+    if current_user["user_type"] != "worker":
+        raise HTTPException(status_code=403, detail="Only workers can view their applications")
+    
+    applications = await db.applications.find({"worker_id": current_user["id"]}, {"_id": 0}).sort("created_at", -1).to_list(100)
+    for app in applications:
+        if isinstance(app["created_at"], str):
+            app["created_at"] = datetime.fromisoformat(app["created_at"])
+    return [Application(**a) for a in applications]
+
+@api_router.get("/applications/job/{job_id}", response_model=List[Application])
+async def get_job_applications(job_id: str, current_user: dict = Depends(get_current_user)):
+    job = await db.jobs.find_one({"id": job_id}, {"_id": 0})
+    if not job:
+        raise HTTPException(status_code=404, detail="Job not found")
+    
+    if current_user["user_type"] != "client" or job["client_id"] != current_user["id"]:
+        raise HTTPException(status_code=403, detail="Not authorized")
+    
+    applications = await db.applications.find({"job_id": job_id}, {"_id": 0}).sort("created_at", -1).to_list(100)
+    for app in applications:
+        if isinstance(app["created_at"], str):
+            app["created_at"] = datetime.fromisoformat(app["created_at"])
+    return [Application(**a) for a in applications]
+
+# ===== PRICING / SUBSCRIPTION =====
+
+@api_router.get("/pricing/plans")
+async def get_pricing_plans():
+    return {
+        "plans": [
+            {
+                "name": "Free",
+                "price": 0,
+                "features": ["Post up to 3 jobs per month", "Basic support", "Standard job visibility"],
+                "job_limit": 3
+            },
+            {
+                "name": "Professional",
+                "price": 299,
+                "currency": "ZAR",
+                "features": ["Unlimited job posts", "Featured job listings", "Priority support", "Access to talent database"],
+                "job_limit": -1
+            },
+            {
+                "name": "Enterprise",
+                "price": 999,
+                "currency": "ZAR",
+                "features": ["Everything in Professional", "Dedicated account manager", "Custom integrations", "Advanced analytics"],
+                "job_limit": -1
+            }
+        ],
+        "commission": {
+            "transaction_fee": "8-20%",
+            "placement_fee": "10-20% of first year salary"
+        }
+    }
+
+# ===== CATEGORIES =====
+
+@api_router.get("/categories")
+async def get_categories():
+    return {
+        "handy_work": {
+            "name": "Handy Work",
+            "description": "Local services for your everyday needs",
+            "subcategories": ["Plumber", "Electrician", "Cleaner", "Mover", "Handyman", "Gardener", "Painter"]
+        },
+        "professional_services": {
+            "name": "Professional Services",
+            "description": "Skilled professionals for your business",
+            "subcategories": ["Software Developer", "Designer", "Virtual Assistant", "Accountant", "Recruiter", "Customer Support", "Marketing", "Writer"]
+        }
+    }
+
 app.include_router(api_router)
 
 app.add_middleware(
@@ -77,7 +485,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Configure logging
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'

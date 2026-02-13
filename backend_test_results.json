@@ -1,0 +1,113 @@
+{
+  "timestamp": "2026-02-13T14:43:48.834179",
+  "total_tests": 21,
+  "passed_tests": 21,
+  "success_rate": 100.0,
+  "results": [
+    {
+      "test": "Worker Registration",
+      "success": true,
+      "details": ""
+    },
+    {
+      "test": "Client Registration",
+      "success": true,
+      "details": ""
+    },
+    {
+      "test": "Worker Login",
+      "success": true,
+      "details": ""
+    },
+    {
+      "test": "Get Current User",
+      "success": true,
+      "details": ""
+    },
+    {
+      "test": "Create Worker Profile",
+      "success": true,
+      "details": ""
+    },
+    {
+      "test": "Get My Worker Profile",
+      "success": true,
+      "details": ""
+    },
+    {
+      "test": "Update Worker Profile",
+      "success": true,
+      "details": ""
+    },
+    {
+      "test": "Get All Workers",
+      "success": true,
+      "details": ""
+    },
+    {
+      "test": "Get Workers by Category",
+      "success": true,
+      "details": ""
+    },
+    {
+      "test": "Create Client Profile",
+      "success": true,
+      "details": ""
+    },
+    {
+      "test": "Get My Client Profile",
+      "success": true,
+      "details": ""
+    },
+    {
+      "test": "Create Job",
+      "success": true,
+      "details": ""
+    },
+    {
+      "test": "Get All Jobs",
+      "success": true,
+      "details": ""
+    },
+    {
+      "test": "Get Jobs by Category",
+      "success": true,
+      "details": ""
+    },
+    {
+      "test": "Get My Jobs",
+      "success": true,
+      "details": ""
+    },
+    {
+      "test": "Get Job by ID",
+      "success": true,
+      "details": ""
+    },
+    {
+      "test": "Create Application",
+      "success": true,
+      "details": ""
+    },
+    {
+      "test": "Get My Applications",
+      "success": true,
+      "details": ""
+    },
+    {
+      "test": "Get Job Applications",
+      "success": true,
+      "details": ""
+    },
+    {
+      "test": "Get Pricing Plans",
+      "success": true,
+      "details": ""
+    },
+    {
+      "test": "Get Categories",
+      "success": true,
+      "details": ""
+    }
+  ]
+}

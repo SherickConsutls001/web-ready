@@ -34,7 +34,7 @@ JWT_EXPIRATION_HOURS = 72
 # ===== MODELS =====
 
 class Message(BaseModel):
-    model_config = ConfigDict(extra=\"ignore\")
+    model_config = ConfigDict(extra="ignore")
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     sender_id: str
     receiver_id: str
@@ -53,7 +53,7 @@ class MessageCreate(BaseModel):
     content: str
 
 class Contract(BaseModel):
-    model_config = ConfigDict(extra=\"ignore\")
+    model_config = ConfigDict(extra="ignore")
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     job_id: str
     client_id: str
@@ -77,7 +77,7 @@ class ContractCreate(BaseModel):
     budget_amount: float
 
 class Review(BaseModel):
-    model_config = ConfigDict(extra=\"ignore\")
+    model_config = ConfigDict(extra="ignore")
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     contract_id: str
     reviewer_id: str

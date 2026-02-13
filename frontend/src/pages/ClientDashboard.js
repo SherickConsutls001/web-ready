@@ -34,7 +34,7 @@ export default function ClientDashboard({ user }) {
   const [jobData, setJobData] = useState({
     title: "",
     description: "",
-    category: "professional_services",
+    category: "development_it",
     subcategory: "",
     budget_type: "hourly",
     budget_amount: "",

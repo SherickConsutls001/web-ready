@@ -62,8 +62,8 @@ class Contract(BaseModel):
     description: str
     budget_amount: float
     escrow_amount: float  # Amount held in escrow
-    payment_status: pending", \"escrowed", \"released", \"disputed"] = \"pending\"
-    contract_status: draft", \"active", \"completed", \"cancelled"] = \"draft\"
+    payment_status: Literal["pending", "escrowed", "released", "disputed"] = "pending"
+    contract_status: Literal["draft", "active", "completed", "cancelled"] = "draft"
     start_date: Optional[datetime] = None
     end_date: Optional[datetime] = None
     commission_rate: float = 0.15  # 15% commission

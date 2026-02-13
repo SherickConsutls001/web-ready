@@ -369,10 +369,24 @@ async def get_jobs(
         query["budget_type"] = budget_type
     
     jobs = await db.jobs.find(query, {"_id": 0}).sort("created_at", -1).to_list(100)
+    
+    # Filter out jobs with invalid categories and convert datetime
+    valid_jobs = []
+    valid_categories = {"handy_work", "development_it", "ai_services", "data_science", "design_creative", 
+                       "writing_translation", "sales_marketing", "admin_support", "finance_accounting", 
+                       "hr_training", "legal", "engineering_architecture"}
+    
     for job in jobs:
-        if isinstance(job["created_at"], str):
+        if isinstance(job.get("created_at"), str):
             job["created_at"] = datetime.fromisoformat(job["created_at"])
-    return [Job(**j) for j in jobs]
+        
+        # Skip jobs with old/invalid categories
+        if job.get("category") not in valid_categories:
+            continue
+            
+        valid_jobs.append(Job(**job))
+    
+    return valid_jobs
 
 @api_router.get("/jobs/{job_id}", response_model=Job)
 async def get_job_by_id(job_id: str):

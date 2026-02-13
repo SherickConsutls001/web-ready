@@ -28,31 +28,32 @@ export default function Homepage({ user }) {
   return (
     <Layout user={user}>
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-slate-50 via-white to-blue-50 py-20 md:py-32 overflow-hidden">
+      <section className="relative bg-gradient-to-br from-slate-50 via-white to-blue-50 py-16 md:py-24 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="z-10">
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold font-outfit text-slate-900 mb-6 leading-tight" data-testid="hero-heading">
-                Hire Skilled <span className="text-saflag-blue">South African</span> Talent for Remote, Freelance, and Full-Time Work
+              <h1 className="text-4xl md:text-5xl font-bold font-outfit text-slate-900 mb-6 leading-tight" data-testid="hero-heading">
+                Hire Skilled <span className="text-saflag-blue">South African Talent</span> for Remote, Freelance, and Full-Time Work
               </h1>
-              <p className="text-lg md:text-xl text-slate-600 mb-8 leading-relaxed">
+              <p className="text-base md:text-lg text-slate-600 mb-8 leading-relaxed">
                 Access a trusted marketplace of verified South African professionals and service providers. Hire faster, reduce costs, and scale your business with confidence.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link to="/hire-talent" data-testid="hero-hire-button">
-                  <Button className="bg-saflag-blue hover:bg-saflag-blue/90 text-white rounded-full px-8 py-6 text-lg shadow-lg shadow-blue-900/20">
+                  <Button className="bg-saflag-blue hover:bg-saflag-blue/90 text-white rounded-lg px-8 py-3 text-base shadow-lg shadow-blue-900/20">
                     Hire Talent
                   </Button>
                 </Link>
                 <Link to="/find-work" data-testid="hero-find-work-button">
-                  <Button variant="outline" className="border-2 border-saflag-blue text-saflag-blue hover:bg-blue-50 rounded-full px-8 py-6 text-lg">
+                  <Button variant="outline" className="border-2 border-saflag-blue text-saflag-blue hover:bg-blue-50 rounded-lg px-8 py-3 text-base">
                     Find Work
                   </Button>
                 </Link>
               </div>
             </div>
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-saflag-blue/10 to-saflag-green/10 rounded-3xl transform rotate-3"></div>
+            <div className="relative lg:block hidden">
+              <div className="absolute -top-4 -right-4 w-72 h-72 bg-saflag-blue/5 rounded-full blur-3xl"></div>
+              <div className="absolute -bottom-4 -left-4 w-72 h-72 bg-saflag-green/5 rounded-full blur-3xl"></div>
               <img
                 src="https://customer-assets.emergentagent.com/job_zaworkplace/artifacts/5o1tgms9_homepage%20skillbridge.jpg"
                 alt="South African professionals working"

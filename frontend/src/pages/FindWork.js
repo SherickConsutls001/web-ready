@@ -73,7 +73,17 @@ export default function FindWork({ user }) {
                     <SelectContent>
                       <SelectItem value="all">All Categories</SelectItem>
                       <SelectItem value="handy_work">Handy Work</SelectItem>
-                      <SelectItem value="professional_services">Professional Services</SelectItem>
+                      <SelectItem value="development_it">Development & IT</SelectItem>
+                      <SelectItem value="ai_services">AI Services</SelectItem>
+                      <SelectItem value="data_science">Data Science & Analytics</SelectItem>
+                      <SelectItem value="design_creative">Design & Creative</SelectItem>
+                      <SelectItem value="writing_translation">Writing & Translation</SelectItem>
+                      <SelectItem value="sales_marketing">Sales & Marketing</SelectItem>
+                      <SelectItem value="admin_support">Admin & Customer Support</SelectItem>
+                      <SelectItem value="finance_accounting">Finance & Accounting</SelectItem>
+                      <SelectItem value="hr_training">HR & Training</SelectItem>
+                      <SelectItem value="legal">Legal</SelectItem>
+                      <SelectItem value="engineering_architecture">Engineering & Architecture</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>

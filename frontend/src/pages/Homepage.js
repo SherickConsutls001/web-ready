@@ -2,7 +2,7 @@ import Layout from "@/components/Layout";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Wrench, Code, Brain, Briefcase, MapPin, DollarSign, Users, Award, TrendingUp, Globe, CheckCircle, Shield, Star } from "lucide-react";
+import { Briefcase, MapPin, DollarSign, Users, Award, TrendingUp, Globe, CheckCircle, Shield, Star } from "lucide-react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 

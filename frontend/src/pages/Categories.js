@@ -106,7 +106,7 @@ export default function Categories({ user }) {
                       <p className="text-slate-600">{category.description}</p>
                     </div>
                   </div>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mb-6">
                     {category.subcategories.map((subcategory, idx) => (
                       <Card key={idx} className="border-slate-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 cursor-pointer" data-testid={`subcategory-${subcategory.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}>
                         <CardContent className="p-4 text-center">
@@ -114,6 +114,14 @@ export default function Categories({ user }) {
                         </CardContent>
                       </Card>
                     ))}
+                  </div>
+                  {/* CTA for each category */}
+                  <div className="text-center">
+                    <Link to="/hire-talent">
+                      <Button className="bg-[#14A800] hover:bg-[#14A800]/90 text-white rounded-full px-8 py-3 text-base shadow-lg" data-testid={`find-talent-${key}`}>
+                        Find Talent Now
+                      </Button>
+                    </Link>
                   </div>
                 </div>
               );

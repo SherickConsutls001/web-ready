@@ -113,7 +113,7 @@ export default function ClientDashboard({ user }) {
       setJobData({
         title: "",
         description: "",
-        category: "professional_services",
+        category: "development_it",
         subcategory: "",
         budget_type: "hourly",
         budget_amount: "",

@@ -77,31 +77,101 @@ export default function Homepage({ user }) {
               </div>
             </div>
 
-            {/* Right Side - Profile Images in Pattern */}
+            {/* Right Side - Futuristic Profile Grid */}
             <div className="relative hidden lg:block">
               <div className="relative w-full h-96">
-                {/* Top Row */}
-                <div className="absolute top-0 left-1/4 w-24 h-24 rounded-full overflow-hidden border-4 border-white/20 shadow-xl">
-                  <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop" alt="Professional" className="w-full h-full object-cover" />
+                {/* Connecting Lines Animation */}
+                <div className="absolute inset-0 opacity-20">
+                  <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                    <line x1="25%" y1="15%" x2="60%" y2="35%" stroke="#FFB81C" strokeWidth="2" strokeDasharray="4,4" />
+                    <line x1="60%" y1="35%" x2="75%" y2="55%" stroke="#FFB81C" strokeWidth="2" strokeDasharray="4,4" />
+                    <line x1="15%" y1="45%" x2="45%" y2="65%" stroke="#007749" strokeWidth="2" strokeDasharray="4,4" />
+                  </svg>
                 </div>
-                <div className="absolute top-0 right-1/4 w-28 h-28 rounded-full overflow-hidden border-4 border-saflag-gold shadow-xl">
-                  <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop" alt="Professional" className="w-full h-full object-cover" />
+
+                {/* Profile Cards with Glassmorphism */}
+                {/* Top Left */}
+                <div className="absolute top-0 left-8 group">
+                  <div className="relative w-28 h-28 rounded-2xl overflow-hidden backdrop-blur-sm bg-white/10 border border-white/20 shadow-2xl hover:scale-105 transition-transform duration-300">
+                    <div className="absolute inset-0 bg-gradient-to-br from-saflag-gold/20 to-transparent"></div>
+                    <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=200&h=200&fit=crop&crop=faces" alt="Professional" className="w-full h-full object-cover" />
+                    <div className="absolute inset-0 ring-2 ring-saflag-gold/50 rounded-2xl group-hover:ring-saflag-gold transition-all"></div>
+                  </div>
+                  <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-saflag-green rounded-full border-2 border-saflag-blue flex items-center justify-center">
+                    <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                  </div>
                 </div>
-                
-                {/* Middle Row */}
-                <div className="absolute top-1/3 left-0 w-32 h-32 rounded-full overflow-hidden border-4 border-white/20 shadow-xl">
-                  <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&h=200&fit=crop" alt="Professional" className="w-full h-full object-cover" />
+
+                {/* Top Right */}
+                <div className="absolute top-8 right-12 group">
+                  <div className="relative w-32 h-32 rounded-2xl overflow-hidden backdrop-blur-sm bg-white/10 border border-white/20 shadow-2xl hover:scale-105 transition-transform duration-300">
+                    <div className="absolute inset-0 bg-gradient-to-br from-saflag-blue/30 to-transparent"></div>
+                    <img src="https://images.unsplash.com/photo-1506863530036-1efeddceb993?w=200&h=200&fit=crop&crop=faces" alt="Professional" className="w-full h-full object-cover" />
+                    <div className="absolute inset-0 ring-2 ring-white/30 rounded-2xl group-hover:ring-white/60 transition-all"></div>
+                  </div>
+                  <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-saflag-green rounded-full border-2 border-saflag-blue flex items-center justify-center">
+                    <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                  </div>
                 </div>
-                <div className="absolute top-1/3 right-8 w-24 h-24 rounded-full overflow-hidden border-4 border-white/20 shadow-xl">
-                  <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=200&h=200&fit=crop" alt="Professional" className="w-full h-full object-cover" />
+
+                {/* Middle Left */}
+                <div className="absolute top-1/3 left-0 group">
+                  <div className="relative w-24 h-24 rounded-2xl overflow-hidden backdrop-blur-sm bg-white/10 border border-white/20 shadow-2xl hover:scale-105 transition-transform duration-300">
+                    <div className="absolute inset-0 bg-gradient-to-br from-saflag-green/20 to-transparent"></div>
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=faces" alt="Professional" className="w-full h-full object-cover" />
+                    <div className="absolute inset-0 ring-2 ring-white/30 rounded-2xl group-hover:ring-white/60 transition-all"></div>
+                  </div>
+                  <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-saflag-green rounded-full border-2 border-saflag-blue flex items-center justify-center">
+                    <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                  </div>
                 </div>
-                
-                {/* Bottom Row */}
-                <div className="absolute bottom-8 left-1/3 w-28 h-28 rounded-full overflow-hidden border-4 border-white/20 shadow-xl">
-                  <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop" alt="Professional" className="w-full h-full object-cover" />
+
+                {/* Center */}
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 group">
+                  <div className="relative w-36 h-36 rounded-2xl overflow-hidden backdrop-blur-sm bg-white/10 border border-saflag-gold/50 shadow-2xl hover:scale-105 transition-transform duration-300">
+                    <div className="absolute inset-0 bg-gradient-to-br from-saflag-gold/30 to-transparent"></div>
+                    <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=200&h=200&fit=crop&crop=faces" alt="Professional" className="w-full h-full object-cover" />
+                    <div className="absolute inset-0 ring-2 ring-saflag-gold rounded-2xl group-hover:ring-saflag-gold/80 transition-all"></div>
+                  </div>
+                  <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-saflag-green rounded-full border-2 border-saflag-blue flex items-center justify-center">
+                    <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                  </div>
                 </div>
-                <div className="absolute bottom-0 right-1/4 w-24 h-24 rounded-full overflow-hidden border-4 border-saflag-gold shadow-xl">
-                  <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop" alt="Professional" className="w-full h-full object-cover" />
+
+                {/* Middle Right */}
+                <div className="absolute top-1/2 right-4 group">
+                  <div className="relative w-28 h-28 rounded-2xl overflow-hidden backdrop-blur-sm bg-white/10 border border-white/20 shadow-2xl hover:scale-105 transition-transform duration-300">
+                    <div className="absolute inset-0 bg-gradient-to-br from-saflag-blue/20 to-transparent"></div>
+                    <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=200&h=200&fit=crop&crop=faces" alt="Professional" className="w-full h-full object-cover" />
+                    <div className="absolute inset-0 ring-2 ring-white/30 rounded-2xl group-hover:ring-white/60 transition-all"></div>
+                  </div>
+                  <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-saflag-green rounded-full border-2 border-saflag-blue flex items-center justify-center">
+                    <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                  </div>
+                </div>
+
+                {/* Bottom Left */}
+                <div className="absolute bottom-4 left-16 group">
+                  <div className="relative w-28 h-28 rounded-2xl overflow-hidden backdrop-blur-sm bg-white/10 border border-white/20 shadow-2xl hover:scale-105 transition-transform duration-300">
+                    <div className="absolute inset-0 bg-gradient-to-br from-saflag-green/20 to-transparent"></div>
+                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop&crop=faces" alt="Professional" className="w-full h-full object-cover" />
+                    <div className="absolute inset-0 ring-2 ring-white/30 rounded-2xl group-hover:ring-white/60 transition-all"></div>
+                  </div>
+                  <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-saflag-green rounded-full border-2 border-saflag-blue flex items-center justify-center">
+                    <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                  </div>
+                </div>
+
+                {/* Bottom Right */}
+                <div className="absolute bottom-0 right-16 group">
+                  <div className="relative w-24 h-24 rounded-2xl overflow-hidden backdrop-blur-sm bg-white/10 border border-saflag-gold/40 shadow-2xl hover:scale-105 transition-transform duration-300">
+                    <div className="absolute inset-0 bg-gradient-to-br from-saflag-gold/20 to-transparent"></div>
+                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop&crop=faces" alt="Professional" className="w-full h-full object-cover" />
+                    <div className="absolute inset-0 ring-2 ring-saflag-gold/50 rounded-2xl group-hover:ring-saflag-gold transition-all"></div>
+                  </div>
+                  <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-saflag-green rounded-full border-2 border-saflag-blue flex items-center justify-center">
+                    <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                  </div>
                 </div>
               </div>
             </div>

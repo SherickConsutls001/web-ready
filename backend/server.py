@@ -33,6 +33,65 @@ JWT_EXPIRATION_HOURS = 72
 
 # ===== MODELS =====
 
+class Message(BaseModel):
+    model_config = ConfigDict(extra=\"ignore\")
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    sender_id: str
+    receiver_id: str
+    job_id: Optional[str] = None
+    content: str
+    filtered_content: str
+    is_blocked: bool = False
+    blocked_patterns: List[str] = []
+    is_flagged: bool = False
+    flag_reason: Optional[str] = None
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+class MessageCreate(BaseModel):
+    receiver_id: str
+    job_id: Optional[str] = None
+    content: str
+
+class Contract(BaseModel):
+    model_config = ConfigDict(extra=\"ignore\")
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    job_id: str
+    client_id: str
+    worker_id: str
+    title: str
+    description: str
+    budget_amount: float
+    escrow_amount: float  # Amount held in escrow
+    payment_status: Literal[\"pending\", \"escrowed\", \"released\", \"disputed\"] = \"pending\"
+    contract_status: Literal[\"draft\", \"active\", \"completed\", \"cancelled\"] = \"draft\"
+    start_date: Optional[datetime] = None
+    end_date: Optional[datetime] = None
+    commission_rate: float = 0.15  # 15% commission
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+class ContractCreate(BaseModel):
+    job_id: str
+    worker_id: str
+    title: str
+    description: str
+    budget_amount: float
+
+class Review(BaseModel):
+    model_config = ConfigDict(extra=\"ignore\")
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    contract_id: str
+    reviewer_id: str
+    reviewee_id: str
+    rating: int  # 1-5
+    comment: str
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+class ReviewCreate(BaseModel):
+    contract_id: str
+    reviewee_id: str
+    rating: int
+    comment: str
+
 class UserRegister(BaseModel):
     email: EmailStr
     password: str

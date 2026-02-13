@@ -466,12 +466,101 @@ async def get_categories():
         "handy_work": {
             "name": "Handy Work",
             "description": "Local services for your everyday needs",
-            "subcategories": ["Plumber", "Electrician", "Cleaner", "Mover", "Handyman", "Gardener", "Painter"]
+            "subcategories": ["Plumber", "Electrician", "Cleaner", "Mover", "Handyman", "Gardener", "Painter", "Carpenter"]
         },
-        "professional_services": {
-            "name": "Professional Services",
-            "description": "Skilled professionals for your business",
-            "subcategories": ["Software Developer", "Designer", "Virtual Assistant", "Accountant", "Recruiter", "Customer Support", "Marketing", "Writer"]
+        "development_it": {
+            "name": "Development & IT",
+            "description": "Software development and technology services",
+            "subcategories": [
+                "Web Development", "Mobile App Development", "Desktop Software Development",
+                "Ecommerce Development", "CMS Development", "Game Development",
+                "Scripts & Automation", "API Development", "Cloud Engineering",
+                "DevOps & Infrastructure", "Cybersecurity", "Blockchain & Web3", "QA & Testing"
+            ]
+        },
+        "ai_services": {
+            "name": "AI Services",
+            "description": "Artificial intelligence and machine learning",
+            "subcategories": [
+                "AI Model Development", "Machine Learning", "Chatbot Development",
+                "AI Integration", "Generative AI", "Prompt Engineering", "AI Automation"
+            ]
+        },
+        "data_science": {
+            "name": "Data Science & Analytics",
+            "description": "Data analysis and business intelligence",
+            "subcategories": [
+                "Data Analysis", "Data Visualization", "Data Engineering",
+                "Data Mining", "Business Intelligence", "SQL & Database Management",
+                "Power BI", "Tableau"
+            ]
+        },
+        "design_creative": {
+            "name": "Design & Creative",
+            "description": "Visual design and creative services",
+            "subcategories": [
+                "Graphic Design", "Logo Design", "UI/UX Design", "Web Design",
+                "Product Design", "Video Editing", "Animation & Motion Graphics",
+                "3D Modeling & Rendering", "Illustration", "Branding & Identity"
+            ]
+        },
+        "writing_translation": {
+            "name": "Writing & Translation",
+            "description": "Content creation and language services",
+            "subcategories": [
+                "Content Writing", "Copywriting", "Blog Writing", "Technical Writing",
+                "SEO Writing", "Translation", "Proofreading & Editing", "Resume & CV Writing"
+            ]
+        },
+        "sales_marketing": {
+            "name": "Sales & Marketing",
+            "description": "Digital marketing and business growth",
+            "subcategories": [
+                "Digital Marketing", "Social Media Marketing", "Social Media Management",
+                "SEO", "Google Ads", "Email Marketing", "Lead Generation",
+                "Marketing Strategy", "Sales & Business Development"
+            ]
+        },
+        "admin_support": {
+            "name": "Admin & Customer Support",
+            "description": "Virtual assistance and administrative services",
+            "subcategories": [
+                "Virtual Assistance", "Data Entry", "Customer Support",
+                "Email Support", "Chat Support", "Phone Support",
+                "Appointment Setting", "Project Management"
+            ]
+        },
+        "finance_accounting": {
+            "name": "Finance & Accounting",
+            "description": "Financial management and bookkeeping",
+            "subcategories": [
+                "Bookkeeping", "Accounting", "Payroll", "Financial Analysis",
+                "Tax Preparation", "Financial Modeling"
+            ]
+        },
+        "hr_training": {
+            "name": "HR & Training",
+            "description": "Human resources and talent management",
+            "subcategories": [
+                "Recruiting & Talent Sourcing", "HR Management", "Training & Development",
+                "Interviewing", "HR Consulting"
+            ]
+        },
+        "legal": {
+            "name": "Legal",
+            "description": "Legal consulting and services",
+            "subcategories": [
+                "Contract Drafting", "Legal Consulting", "Compliance",
+                "Corporate Law", "Intellectual Property"
+            ]
+        },
+        "engineering_architecture": {
+            "name": "Engineering & Architecture",
+            "description": "Engineering design and architecture services",
+            "subcategories": [
+                "Civil Engineering", "Mechanical Engineering", "Electrical Engineering",
+                "Structural Engineering", "Architecture", "CAD Design", "Interior Design"
+            ]
         }
     }
 

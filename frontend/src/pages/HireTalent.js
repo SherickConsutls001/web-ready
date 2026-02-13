@@ -127,31 +127,34 @@ export default function HireTalent({ user }) {
                         <AvatarFallback className="bg-primary text-white text-xl">{worker.title.substring(0, 2).toUpperCase()}</AvatarFallback>
                       </Avatar>
                       <h3 className="text-xl font-bold font-outfit text-slate-900 mb-1" data-testid="worker-title">{worker.title}</h3>
-                      <p className="text-sm text-slate-600 mb-2">{worker.category.replace("_", " ")}</p>
-                      <div className="flex items-center text-slate-600 text-sm mb-3" data-testid="worker-location">
-                        <MapPin className="w-4 h-4 mr-1" />
+                      <p className="text-sm text-slate-600 mb-2">{worker.category.replace(\"_\", \" \")}</p>
+                      <div className=\"flex items-center text-slate-600 text-sm mb-3\" data-testid=\"worker-location\">
+                        <MapPin className=\"w-4 h-4 mr-1\" />
                         {worker.location}
                       </div>
+                      <p className=\"text-xs text-amber-600 bg-amber-50 px-3 py-1 rounded-full\">
+                        Full profile unlocks after contract
+                      </p>
                     </div>
 
-                    <p className="text-slate-600 text-sm mb-4 line-clamp-3">{worker.bio}</p>
+                    <p className=\"text-slate-600 text-sm mb-4 line-clamp-3\">{worker.bio}</p>
 
-                    <div className="flex flex-wrap gap-2 mb-4">
+                    <div className=\"flex flex-wrap gap-2 mb-4\">
                       {worker.skills.slice(0, 3).map((skill, idx) => (
-                        <span key={idx} className="bg-slate-100 text-slate-700 px-2 py-1 rounded text-xs">
+                        <span key={idx} className=\"bg-slate-100 text-slate-700 px-2 py-1 rounded text-xs\">
                           {skill}
                         </span>
                       ))}
                     </div>
 
-                    <div className="flex items-center justify-between pt-4 border-t border-slate-100">
+                    <div className=\"flex items-center justify-between pt-4 border-t border-slate-100\">
                       <div>
-                        <div className="text-sm text-slate-500">Hourly Rate</div>
-                        <div className="text-xl font-bold text-primary" data-testid="worker-rate">R{worker.hourly_rate}</div>
+                        <div className=\"text-sm text-slate-500\">Hourly Rate</div>
+                        <div className=\"text-xl font-bold text-primary\" data-testid=\"worker-rate\">R{worker.hourly_rate}</div>
                       </div>
                       <div>
-                        <div className="text-sm text-slate-500">Experience</div>
-                        <div className="text-lg font-semibold text-slate-900">{worker.experience_years}+ yrs</div>
+                        <div className=\"text-sm text-slate-500\">Experience</div>
+                        <div className=\"text-lg font-semibold text-slate-900\">{worker.experience_years}+ yrs</div>
                       </div>
                     </div>
                   </CardContent>

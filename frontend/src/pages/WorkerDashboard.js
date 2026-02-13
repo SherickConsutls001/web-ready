@@ -30,7 +30,7 @@ export default function WorkerDashboard({ user }) {
     hourly_rate: "",
     experience_years: "",
     location: "",
-    category: "professional_services",
+    category: "development_it",
     portfolio_links: ""
   });
 

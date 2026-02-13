@@ -127,15 +127,6 @@ export default function Categories({ user }) {
               );
             })}
           </div>
-
-          {/* CTA */}
-          <div className="text-center mt-12">
-            <Link to="/hire-talent">
-              <Button className="bg-[#14A800] hover:bg-[#14A800]/90 text-white rounded-full px-12 py-6 text-lg shadow-lg" data-testid="find-talent-button">
-                Find Talent Now
-              </Button>
-            </Link>
-          </div>
         </div>
       </div>
     </Layout>

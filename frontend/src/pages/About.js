@@ -14,7 +14,7 @@ export default function About({ user }) {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div className="text-white">
                 <h1 className="text-5xl md:text-6xl font-bold font-outfit mb-6" data-testid="about-heading">
-                  About SkillBridge
+                  About TalentBridge
                 </h1>
                 <p className="text-xl text-blue-100 leading-relaxed">
                   Connecting South Africa's exceptional talent with global opportunities.

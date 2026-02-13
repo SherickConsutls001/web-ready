@@ -27,170 +27,54 @@ export default function Homepage({ user }) {
 
   return (
     <Layout user={user}>
-      {/* Hero Section - Exact Match */}
-      <section className="relative bg-gradient-to-br from-saflag-blue via-[#001a6e] to-saflag-blue py-20 md:py-28 overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-saflag-gold rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-saflag-green rounded-full blur-3xl"></div>
+      {/* Hero Section - Upwork Style */}
+      <section className="relative h-[85vh] min-h-[600px] overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <img
+            src="https://customer-assets.emergentagent.com/job_zaworkplace/artifacts/9povp91m_full-shot-man-working-outdoors.jpg"
+            alt="Remote work freedom"
+            className="w-full h-full object-cover object-center-right"
+            style={{ objectPosition: '65% center' }}
+          />
+          {/* Gradient Overlay - Left Side */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent"></div>
         </div>
-        
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Left Side - Content */}
-            <div>
-              <h1 className="text-5xl md:text-6xl font-bold font-outfit text-white mb-6 leading-tight" data-testid="hero-heading">
-                Hire Skilled{" "}
-                <span className="text-saflag-gold">South African</span>{" "}
-                Talent for{" "}
-                <span className="text-saflag-gold">Remote</span>, Freelance, and Full-Time Work
+
+        {/* Content */}
+        <div className="relative z-10 h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="h-full flex items-center">
+            <div className="max-w-2xl">
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold font-outfit text-white mb-6 leading-tight" data-testid="hero-heading">
+                Hire Top South African Talent for Remote, Freelance, and Full-Time Work
               </h1>
-              <p className="text-lg text-blue-100 mb-8 leading-relaxed">
-                Access a trusted marketplace of verified South African professionals and service providers. Hire faster, reduce costs, and scale your business with confidence.
+              <p className="text-xl md:text-2xl text-white/90 mb-10 leading-relaxed">
+                Connect with skilled professionals trusted by global companies. Scale your team faster and reduce hiring costs.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 mb-12">
+              <div className="flex flex-col sm:flex-row gap-4">
                 <Link to="/hire-talent" data-testid="hero-hire-button">
-                  <Button className="bg-saflag-gold hover:bg-saflag-gold/90 text-saflag-blue font-semibold rounded-lg px-8 py-4 text-base shadow-lg">
+                  <Button className="bg-[#14A800] hover:bg-[#14A800]/90 text-white font-semibold rounded-full px-10 py-7 text-lg shadow-xl">
                     Hire Talent
                   </Button>
                 </Link>
                 <Link to="/find-work" data-testid="hero-find-work-button">
-                  <Button variant="outline" className="border-2 border-white text-white hover:bg-white/10 rounded-lg px-8 py-4 text-base">
+                  <Button variant="outline" className="border-2 border-white text-white hover:bg-white/10 backdrop-blur-sm rounded-full px-10 py-7 text-lg">
                     Find Work
                   </Button>
                 </Link>
               </div>
-              
-              {/* Stats */}
-              <div className="grid grid-cols-3 gap-6">
-                <div>
-                  <div className="text-3xl font-bold text-saflag-gold mb-1">500+</div>
-                  <div className="text-sm text-blue-200">Jobs Posted</div>
-                </div>
-                <div>
-                  <div className="text-3xl font-bold text-saflag-gold mb-1">300+</div>
-                  <div className="text-sm text-blue-200">Professionals</div>
-                </div>
-                <div>
-                  <div className="text-3xl font-bold text-saflag-gold mb-1">98%</div>
-                  <div className="text-sm text-blue-200">Success Rate</div>
-                </div>
-              </div>
-            </div>
-
-            {/* Right Side - Futuristic Profile Grid */}
-            <div className="relative hidden lg:block">
-              <div className="relative w-full h-96">
-                {/* Connecting Lines Animation */}
-                <div className="absolute inset-0 opacity-20">
-                  <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-                    <line x1="25%" y1="15%" x2="60%" y2="35%" stroke="#FFB81C" strokeWidth="2" strokeDasharray="4,4" />
-                    <line x1="60%" y1="35%" x2="75%" y2="55%" stroke="#FFB81C" strokeWidth="2" strokeDasharray="4,4" />
-                    <line x1="15%" y1="45%" x2="45%" y2="65%" stroke="#007749" strokeWidth="2" strokeDasharray="4,4" />
-                  </svg>
-                </div>
-
-                {/* Profile Cards with Glassmorphism */}
-                {/* Top Left */}
-                <div className="absolute top-0 left-8 group">
-                  <div className="relative w-28 h-28 rounded-2xl overflow-hidden backdrop-blur-sm bg-white/10 border border-white/20 shadow-2xl hover:scale-105 transition-transform duration-300">
-                    <div className="absolute inset-0 bg-gradient-to-br from-saflag-gold/20 to-transparent"></div>
-                    <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=200&h=200&fit=crop&crop=faces" alt="Professional" className="w-full h-full object-cover" />
-                    <div className="absolute inset-0 ring-2 ring-saflag-gold/50 rounded-2xl group-hover:ring-saflag-gold transition-all"></div>
-                  </div>
-                  <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-saflag-green rounded-full border-2 border-saflag-blue flex items-center justify-center">
-                    <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
-                  </div>
-                </div>
-
-                {/* Top Right */}
-                <div className="absolute top-8 right-12 group">
-                  <div className="relative w-32 h-32 rounded-2xl overflow-hidden backdrop-blur-sm bg-white/10 border border-white/20 shadow-2xl hover:scale-105 transition-transform duration-300">
-                    <div className="absolute inset-0 bg-gradient-to-br from-saflag-blue/30 to-transparent"></div>
-                    <img src="https://images.unsplash.com/photo-1506863530036-1efeddceb993?w=200&h=200&fit=crop&crop=faces" alt="Professional" className="w-full h-full object-cover" />
-                    <div className="absolute inset-0 ring-2 ring-white/30 rounded-2xl group-hover:ring-white/60 transition-all"></div>
-                  </div>
-                  <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-saflag-green rounded-full border-2 border-saflag-blue flex items-center justify-center">
-                    <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
-                  </div>
-                </div>
-
-                {/* Middle Left */}
-                <div className="absolute top-1/3 left-0 group">
-                  <div className="relative w-24 h-24 rounded-2xl overflow-hidden backdrop-blur-sm bg-white/10 border border-white/20 shadow-2xl hover:scale-105 transition-transform duration-300">
-                    <div className="absolute inset-0 bg-gradient-to-br from-saflag-green/20 to-transparent"></div>
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=faces" alt="Professional" className="w-full h-full object-cover" />
-                    <div className="absolute inset-0 ring-2 ring-white/30 rounded-2xl group-hover:ring-white/60 transition-all"></div>
-                  </div>
-                  <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-saflag-green rounded-full border-2 border-saflag-blue flex items-center justify-center">
-                    <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
-                  </div>
-                </div>
-
-                {/* Center */}
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 group">
-                  <div className="relative w-36 h-36 rounded-2xl overflow-hidden backdrop-blur-sm bg-white/10 border border-saflag-gold/50 shadow-2xl hover:scale-105 transition-transform duration-300">
-                    <div className="absolute inset-0 bg-gradient-to-br from-saflag-gold/30 to-transparent"></div>
-                    <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=200&h=200&fit=crop&crop=faces" alt="Professional" className="w-full h-full object-cover" />
-                    <div className="absolute inset-0 ring-2 ring-saflag-gold rounded-2xl group-hover:ring-saflag-gold/80 transition-all"></div>
-                  </div>
-                  <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-saflag-green rounded-full border-2 border-saflag-blue flex items-center justify-center">
-                    <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
-                  </div>
-                </div>
-
-                {/* Middle Right */}
-                <div className="absolute top-1/2 right-4 group">
-                  <div className="relative w-28 h-28 rounded-2xl overflow-hidden backdrop-blur-sm bg-white/10 border border-white/20 shadow-2xl hover:scale-105 transition-transform duration-300">
-                    <div className="absolute inset-0 bg-gradient-to-br from-saflag-blue/20 to-transparent"></div>
-                    <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=200&h=200&fit=crop&crop=faces" alt="Professional" className="w-full h-full object-cover" />
-                    <div className="absolute inset-0 ring-2 ring-white/30 rounded-2xl group-hover:ring-white/60 transition-all"></div>
-                  </div>
-                  <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-saflag-green rounded-full border-2 border-saflag-blue flex items-center justify-center">
-                    <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
-                  </div>
-                </div>
-
-                {/* Bottom Left */}
-                <div className="absolute bottom-4 left-16 group">
-                  <div className="relative w-28 h-28 rounded-2xl overflow-hidden backdrop-blur-sm bg-white/10 border border-white/20 shadow-2xl hover:scale-105 transition-transform duration-300">
-                    <div className="absolute inset-0 bg-gradient-to-br from-saflag-green/20 to-transparent"></div>
-                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop&crop=faces" alt="Professional" className="w-full h-full object-cover" />
-                    <div className="absolute inset-0 ring-2 ring-white/30 rounded-2xl group-hover:ring-white/60 transition-all"></div>
-                  </div>
-                  <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-saflag-green rounded-full border-2 border-saflag-blue flex items-center justify-center">
-                    <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
-                  </div>
-                </div>
-
-                {/* Bottom Right */}
-                <div className="absolute bottom-0 right-16 group">
-                  <div className="relative w-24 h-24 rounded-2xl overflow-hidden backdrop-blur-sm bg-white/10 border border-saflag-gold/40 shadow-2xl hover:scale-105 transition-transform duration-300">
-                    <div className="absolute inset-0 bg-gradient-to-br from-saflag-gold/20 to-transparent"></div>
-                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop&crop=faces" alt="Professional" className="w-full h-full object-cover" />
-                    <div className="absolute inset-0 ring-2 ring-saflag-gold/50 rounded-2xl group-hover:ring-saflag-gold transition-all"></div>
-                  </div>
-                  <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-saflag-green rounded-full border-2 border-saflag-blue flex items-center justify-center">
-                    <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
 
-        {/* Trust Badges Section at Bottom */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 relative z-10">
-          <div className="border-t border-white/10 pt-8">
-            <p className="text-center text-sm text-blue-200 mb-6">Trusted by leading companies</p>
-            <div className="flex flex-wrap justify-center items-center gap-8 opacity-60">
-              <div className="text-white font-semibold text-xl">TechCorp</div>
-              <div className="text-white font-semibold text-xl">GlobalStart</div>
-              <div className="text-white font-semibold text-xl">DigiHub</div>
-              <div className="text-white font-semibold text-xl">InnovateSA</div>
-              <div className="text-white font-semibold text-xl">CloudWorks</div>
-            </div>
-          </div>
-        </div>
+        {/* Mobile: Show less gradient for better image visibility */}
+        <style jsx>{`
+          @media (max-width: 768px) {
+            .object-center-right {
+              object-position: center center;
+            }
+          }
+        `}</style>
       </section>
 
       {/* Why Hire South African Talent */}

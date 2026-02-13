@@ -68,75 +68,115 @@ export default function Homepage({ user }) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-bold font-outfit text-slate-900 mb-4" data-testid="categories-heading">
-              Two Main Categories
+              Browse Talent Across All Categories
             </h2>
-            <p className="text-lg text-slate-600">Whether you need local services or professional talent, we've got you covered</p>
+            <p className="text-lg text-slate-600">From local handymen to AI engineers - find the right professional for any job</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Handy Work Card */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Handy Work */}
             <Card className="border-slate-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-2" data-testid="handy-work-card">
-              <CardContent className="p-0">
-                <div className="relative h-64 overflow-hidden rounded-t-xl">
-                  <img
-                    src="https://images.unsplash.com/photo-1749532125405-70950966b0e5?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMzJ8MHwxfHNlYXJjaHw0fHxwcm9mZXNzaW9uYWwlMjBwbHVtYmVyJTIwZWxlY3RyaWNpYW4lMjBjbGVhbmVyJTIwd29ya2VyfGVufDB8fHx8MTc3MDk5MzA3N3ww&ixlib=rb-4.1.0&q=85"
-                    alt="Handy Work"
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute top-4 left-4 bg-secondary text-white px-4 py-2 rounded-full font-medium">
-                    <Wrench className="inline-block w-5 h-5 mr-2" />
-                    Handy Work
-                  </div>
+              <CardContent className="p-6">
+                <div className="w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center mb-4">
+                  <Wrench className="w-6 h-6 text-secondary" />
                 </div>
-                <div className="p-6">
-                  <h3 className="text-2xl font-bold font-outfit mb-3">Local Services</h3>
-                  <p className="text-slate-600 mb-4">Find trusted local professionals for everyday needs</p>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    <span className="bg-slate-100 text-slate-700 px-3 py-1 rounded-full text-sm">Plumbers</span>
-                    <span className="bg-slate-100 text-slate-700 px-3 py-1 rounded-full text-sm">Electricians</span>
-                    <span className="bg-slate-100 text-slate-700 px-3 py-1 rounded-full text-sm">Cleaners</span>
-                    <span className="bg-slate-100 text-slate-700 px-3 py-1 rounded-full text-sm">Movers</span>
-                  </div>
-                  <Link to="/categories">
-                    <Button className="w-full bg-secondary hover:bg-secondary/90 text-white rounded-full" data-testid="explore-handy-work">
-                      Explore Services
-                    </Button>
-                  </Link>
-                </div>
+                <h3 className="text-xl font-bold font-outfit mb-2">Handy Work</h3>
+                <p className="text-slate-600 text-sm mb-3">Local services - Plumbers, Electricians, Cleaners, Movers</p>
+                <Link to="/categories">
+                  <Button variant="outline" className="w-full border-secondary text-secondary hover:bg-green-50" size="sm">
+                    Explore
+                  </Button>
+                </Link>
               </CardContent>
             </Card>
 
-            {/* Professional Services Card */}
-            <Card className="border-slate-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-2" data-testid="professional-services-card">
-              <CardContent className="p-0">
-                <div className="relative h-64 overflow-hidden rounded-t-xl">
-                  <img
-                    src="https://images.unsplash.com/photo-1758518731468-98e90ffd7430?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2MDV8MHwxfHNlYXJjaHwyfHxkaXZlcnNlJTIwY29ycG9yYXRlJTIwYnVzaW5lc3MlMjB0ZWFtJTIwbWVldGluZyUyMG1vZGVybiUyMG9mZmljZXxlbnwwfHx8fDE3NzA5OTMwNzN8MA&ixlib=rb-4.1.0&q=85"
-                    alt="Professional Services"
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute top-4 left-4 bg-primary text-white px-4 py-2 rounded-full font-medium">
-                    <Briefcase className="inline-block w-5 h-5 mr-2" />
-                    Professional Services
-                  </div>
+            {/* Development & IT */}
+            <Card className="border-slate-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-2" data-testid="development-it-card">
+              <CardContent className="p-6">
+                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                  <Briefcase className="w-6 h-6 text-primary" />
                 </div>
-                <div className="p-6">
-                  <h3 className="text-2xl font-bold font-outfit mb-3">Business Professionals</h3>
-                  <p className="text-slate-600 mb-4">Hire skilled professionals for your business needs</p>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    <span className="bg-slate-100 text-slate-700 px-3 py-1 rounded-full text-sm">Developers</span>
-                    <span className="bg-slate-100 text-slate-700 px-3 py-1 rounded-full text-sm">Designers</span>
-                    <span className="bg-slate-100 text-slate-700 px-3 py-1 rounded-full text-sm">Accountants</span>
-                    <span className="bg-slate-100 text-slate-700 px-3 py-1 rounded-full text-sm">VAs</span>
-                  </div>
-                  <Link to="/categories">
-                    <Button className="w-full bg-primary hover:bg-primary/90 text-white rounded-full" data-testid="explore-professional-services">
-                      Explore Professionals
-                    </Button>
-                  </Link>
-                </div>
+                <h3 className="text-xl font-bold font-outfit mb-2">Development & IT</h3>
+                <p className="text-slate-600 text-sm mb-3">Web, Mobile, Cloud, DevOps, Cybersecurity, Blockchain</p>
+                <Link to="/categories">
+                  <Button variant="outline" className="w-full border-primary text-primary hover:bg-blue-50" size="sm">
+                    Explore
+                  </Button>
+                </Link>
               </CardContent>
             </Card>
+
+            {/* AI Services */}
+            <Card className="border-slate-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-2" data-testid="ai-services-card">
+              <CardContent className="p-6">
+                <div className="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center mb-4">
+                  <span className="text-2xl">🤖</span>
+                </div>
+                <h3 className="text-xl font-bold font-outfit mb-2">AI Services</h3>
+                <p className="text-slate-600 text-sm mb-3">Machine Learning, Chatbots, Generative AI, Automation</p>
+                <Link to="/categories">
+                  <Button variant="outline" className="w-full border-accent text-accent hover:bg-yellow-50" size="sm">
+                    Explore
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
+
+            {/* Data Science */}
+            <Card className="border-slate-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+              <CardContent className="p-6">
+                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                  <span className="text-2xl">📊</span>
+                </div>
+                <h3 className="text-xl font-bold font-outfit mb-2">Data Science & Analytics</h3>
+                <p className="text-slate-600 text-sm mb-3">Data Analysis, Visualization, BI, SQL</p>
+                <Link to="/categories">
+                  <Button variant="outline" className="w-full border-primary text-primary hover:bg-blue-50" size="sm">
+                    Explore
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
+
+            {/* Design & Creative */}
+            <Card className="border-slate-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+              <CardContent className="p-6">
+                <div className="w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center mb-4">
+                  <span className="text-2xl">🎨</span>
+                </div>
+                <h3 className="text-xl font-bold font-outfit mb-2">Design & Creative</h3>
+                <p className="text-slate-600 text-sm mb-3">UI/UX, Graphics, Video, Animation, Branding</p>
+                <Link to="/categories">
+                  <Button variant="outline" className="w-full border-secondary text-secondary hover:bg-green-50" size="sm">
+                    Explore
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
+
+            {/* Sales & Marketing */}
+            <Card className="border-slate-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+              <CardContent className="p-6">
+                <div className="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center mb-4">
+                  <TrendingUp className="w-6 h-6 text-accent" />
+                </div>
+                <h3 className="text-xl font-bold font-outfit mb-2">Sales & Marketing</h3>
+                <p className="text-slate-600 text-sm mb-3">Digital Marketing, SEO, Social Media, Lead Gen</p>
+                <Link to="/categories">
+                  <Button variant="outline" className="w-full border-accent text-accent hover:bg-yellow-50" size="sm">
+                    Explore
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="text-center mt-8">
+            <Link to="/categories">
+              <Button variant="outline" className="border-primary text-primary hover:bg-blue-50">
+                View All Categories
+              </Button>
+            </Link>
           </div>
         </div>
       </section>

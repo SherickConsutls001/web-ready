@@ -27,39 +27,97 @@ export default function Homepage({ user }) {
 
   return (
     <Layout user={user}>
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-slate-50 via-white to-blue-50 py-16 md:py-24 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Hero Section - Exact Match */}
+      <section className="relative bg-gradient-to-br from-saflag-blue via-[#001a6e] to-saflag-blue py-20 md:py-28 overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-saflag-gold rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-saflag-green rounded-full blur-3xl"></div>
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="z-10">
-              <h1 className="text-4xl md:text-5xl font-bold font-outfit text-slate-900 mb-6 leading-tight" data-testid="hero-heading">
-                Hire Skilled <span className="text-saflag-blue">South African Talent</span> for Remote, Freelance, and Full-Time Work
+            {/* Left Side - Content */}
+            <div>
+              <h1 className="text-5xl md:text-6xl font-bold font-outfit text-white mb-6 leading-tight" data-testid="hero-heading">
+                Hire Skilled{" "}
+                <span className="text-saflag-gold">South African</span>{" "}
+                Talent for{" "}
+                <span className="text-saflag-gold">Remote</span>, Freelance, and Full-Time Work
               </h1>
-              <p className="text-base md:text-lg text-slate-600 mb-8 leading-relaxed">
+              <p className="text-lg text-blue-100 mb-8 leading-relaxed">
                 Access a trusted marketplace of verified South African professionals and service providers. Hire faster, reduce costs, and scale your business with confidence.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex flex-col sm:flex-row gap-4 mb-12">
                 <Link to="/hire-talent" data-testid="hero-hire-button">
-                  <Button className="bg-saflag-blue hover:bg-saflag-blue/90 text-white rounded-lg px-8 py-3 text-base shadow-lg shadow-blue-900/20">
+                  <Button className="bg-saflag-gold hover:bg-saflag-gold/90 text-saflag-blue font-semibold rounded-lg px-8 py-4 text-base shadow-lg">
                     Hire Talent
                   </Button>
                 </Link>
                 <Link to="/find-work" data-testid="hero-find-work-button">
-                  <Button variant="outline" className="border-2 border-saflag-blue text-saflag-blue hover:bg-blue-50 rounded-lg px-8 py-3 text-base">
+                  <Button variant="outline" className="border-2 border-white text-white hover:bg-white/10 rounded-lg px-8 py-4 text-base">
                     Find Work
                   </Button>
                 </Link>
               </div>
+              
+              {/* Stats */}
+              <div className="grid grid-cols-3 gap-6">
+                <div>
+                  <div className="text-3xl font-bold text-saflag-gold mb-1">500+</div>
+                  <div className="text-sm text-blue-200">Jobs Posted</div>
+                </div>
+                <div>
+                  <div className="text-3xl font-bold text-saflag-gold mb-1">300+</div>
+                  <div className="text-sm text-blue-200">Professionals</div>
+                </div>
+                <div>
+                  <div className="text-3xl font-bold text-saflag-gold mb-1">98%</div>
+                  <div className="text-sm text-blue-200">Success Rate</div>
+                </div>
+              </div>
             </div>
-            <div className="relative lg:block hidden">
-              <div className="absolute -top-4 -right-4 w-72 h-72 bg-saflag-blue/5 rounded-full blur-3xl"></div>
-              <div className="absolute -bottom-4 -left-4 w-72 h-72 bg-saflag-green/5 rounded-full blur-3xl"></div>
-              <img
-                src="https://customer-assets.emergentagent.com/job_zaworkplace/artifacts/5o1tgms9_homepage%20skillbridge.jpg"
-                alt="South African professionals working"
-                className="relative rounded-2xl shadow-2xl z-10"
-                data-testid="hero-image"
-              />
+
+            {/* Right Side - Profile Images in Pattern */}
+            <div className="relative hidden lg:block">
+              <div className="relative w-full h-96">
+                {/* Top Row */}
+                <div className="absolute top-0 left-1/4 w-24 h-24 rounded-full overflow-hidden border-4 border-white/20 shadow-xl">
+                  <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop" alt="Professional" className="w-full h-full object-cover" />
+                </div>
+                <div className="absolute top-0 right-1/4 w-28 h-28 rounded-full overflow-hidden border-4 border-saflag-gold shadow-xl">
+                  <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop" alt="Professional" className="w-full h-full object-cover" />
+                </div>
+                
+                {/* Middle Row */}
+                <div className="absolute top-1/3 left-0 w-32 h-32 rounded-full overflow-hidden border-4 border-white/20 shadow-xl">
+                  <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&h=200&fit=crop" alt="Professional" className="w-full h-full object-cover" />
+                </div>
+                <div className="absolute top-1/3 right-8 w-24 h-24 rounded-full overflow-hidden border-4 border-white/20 shadow-xl">
+                  <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=200&h=200&fit=crop" alt="Professional" className="w-full h-full object-cover" />
+                </div>
+                
+                {/* Bottom Row */}
+                <div className="absolute bottom-8 left-1/3 w-28 h-28 rounded-full overflow-hidden border-4 border-white/20 shadow-xl">
+                  <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop" alt="Professional" className="w-full h-full object-cover" />
+                </div>
+                <div className="absolute bottom-0 right-1/4 w-24 h-24 rounded-full overflow-hidden border-4 border-saflag-gold shadow-xl">
+                  <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop" alt="Professional" className="w-full h-full object-cover" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Trust Badges Section at Bottom */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 relative z-10">
+          <div className="border-t border-white/10 pt-8">
+            <p className="text-center text-sm text-blue-200 mb-6">Trusted by leading companies</p>
+            <div className="flex flex-wrap justify-center items-center gap-8 opacity-60">
+              <div className="text-white font-semibold text-xl">TechCorp</div>
+              <div className="text-white font-semibold text-xl">GlobalStart</div>
+              <div className="text-white font-semibold text-xl">DigiHub</div>
+              <div className="text-white font-semibold text-xl">InnovateSA</div>
+              <div className="text-white font-semibold text-xl">CloudWorks</div>
             </div>
           </div>
         </div>

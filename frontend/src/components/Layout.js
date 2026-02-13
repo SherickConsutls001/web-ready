@@ -151,7 +151,7 @@ export default function Layout({ children, user }) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
-              <h3 className="font-outfit font-bold text-xl mb-4" data-testid="footer-logo">SkillBridge</h3>
+              <h3 className="font-outfit font-bold text-xl mb-4" data-testid="footer-logo">TalentBridge</h3>
               <p className="text-slate-400 text-sm">Connecting South Africa's Best Talent with the World</p>
             </div>
             <div>

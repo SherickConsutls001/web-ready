@@ -34,7 +34,7 @@ JWT_EXPIRATION_HOURS = 72
 # ===== MODELS =====
 
 class Message(BaseModel):
-    model_config = ConfigDict(extra="ignore")
+    model_config = ConfigDict(extra=\"ignore\")
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     sender_id: str
     receiver_id: str
@@ -53,7 +53,7 @@ class MessageCreate(BaseModel):
     content: str
 
 class Contract(BaseModel):
-    model_config = ConfigDict(extra="ignore")
+    model_config = ConfigDict(extra=\"ignore\")
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     job_id: str
     client_id: str
@@ -62,8 +62,8 @@ class Contract(BaseModel):
     description: str
     budget_amount: float
     escrow_amount: float  # Amount held in escrow
-    payment_status: pending", \"escrowed", \"released", \"disputed"] = \"pending\"
-    contract_status: draft", \"active", \"completed", \"cancelled"] = \"draft\"
+    payment_status: Literal[\"pending\", \"escrowed\", \"released\", \"disputed\"] = \"pending\"
+    contract_status: Literal[\"draft\", \"active\", \"completed\", \"cancelled\"] = \"draft\"
     start_date: Optional[datetime] = None
     end_date: Optional[datetime] = None
     commission_rate: float = 0.15  # 15% commission
@@ -77,7 +77,7 @@ class ContractCreate(BaseModel):
     budget_amount: float
 
 class Review(BaseModel):
-    model_config = ConfigDict(extra="ignore")
+    model_config = ConfigDict(extra=\"ignore\")
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     contract_id: str
     reviewer_id: str
@@ -548,7 +548,7 @@ async def get_pricing_plans():
 
 # ===== MESSAGING ROUTES =====
 
-@api_router.post(\"/messages", response_model=Message)
+@api_router.post(\"/messages\", response_model=Message)
 async def send_message(message_data: MessageCreate, current_user: dict = Depends(get_current_user)):
     # Filter message content
     filtered_content, was_modified = filter_message(message_data.content)
@@ -556,7 +556,7 @@ async def send_message(message_data: MessageCreate, current_user: dict = Depends
     is_susp, flag_reason = is_suspicious_message(message_data.content)
     
     message = Message(
-        sender_id=current_user[\"id"],
+        sender_id=current_user[\"id\"],
         receiver_id=message_data.receiver_id,
         job_id=message_data.job_id,
         content=message_data.content,
@@ -568,7 +568,7 @@ async def send_message(message_data: MessageCreate, current_user: dict = Depends
     )
     
     message_doc = message.model_dump()
-    message_doc[\"created_at"] = message_doc[\"created_at"].isoformat()
+    message_doc[\"created_at\"] = message_doc[\"created_at\"].isoformat()
     
     await db.messages.insert_one(message_doc)
     
@@ -576,30 +576,30 @@ async def send_message(message_data: MessageCreate, current_user: dict = Depends
     if has_blocked:
         raise HTTPException(status_code=400, detail=\"Message contains blocked contact information. Please use platform messaging only.\")\n    \n    return message
 
-@api_router.get(\"/messages/conversation/{user_id}", response_model=List[Message])
+@api_router.get(\"/messages/conversation/{user_id}\", response_model=List[Message])
 async def get_conversation(user_id: str, current_user: dict = Depends(get_current_user)):
     messages = await db.messages.find({
         \"$or\": [
-            {\"sender_id\": current_user[\"id"], \"receiver_id\": user_id},
-            {\"sender_id\": user_id, \"receiver_id\": current_user[\"id"]}
+            {\"sender_id\": current_user[\"id\"], \"receiver_id\": user_id},
+            {\"sender_id\": user_id, \"receiver_id\": current_user[\"id\"]}
         ]
-    }, {\"_id\": 0}).sort(\"created_at", 1).to_list(1000)
+    }, {\"_id\": 0}).sort(\"created_at\", 1).to_list(1000)
     
     for msg in messages:
-        if isinstance(msg[\"created_at"], str):
-            msg[\"created_at"] = datetime.fromisoformat(msg[\"created_at"])
+        if isinstance(msg[\"created_at\"], str):
+            msg[\"created_at\"] = datetime.fromisoformat(msg[\"created_at\"])
     
     return [Message(**m) for m in messages]
 
 # ===== CONTRACT & ESCROW ROUTES =====
 
-@api_router.post(\"/contracts", response_model=Contract)
+@api_router.post(\"/contracts\", response_model=Contract)
 async def create_contract(contract_data: ContractCreate, current_user: dict = Depends(get_current_user)):
-    if current_user[\"user_type"] != \"client\":
+    if current_user[\"user_type\"] != \"client\":
         raise HTTPException(status_code=403, detail=\"Only clients can create contracts\")
     
     # Verify job belongs to client
-    job = await db.jobs.find_one({\"id\": contract_data.job_id, \"client_id\": current_user[\"id"]}, {\"_id\": 0})
+    job = await db.jobs.find_one({\"id\": contract_data.job_id, \"client_id\": current_user[\"id\"]}, {\"_id\": 0})
     if not job:
         raise HTTPException(status_code=404, detail=\"Job not found or not owned by you\")
     
@@ -608,41 +608,41 @@ async def create_contract(contract_data: ContractCreate, current_user: dict = De
     escrow_amount = contract_data.budget_amount * (1 + commission_rate)
     
     contract = Contract(
-        client_id=current_user[\"id"],
+        client_id=current_user[\"id\"],
         escrow_amount=escrow_amount,
         commission_rate=commission_rate,
         **contract_data.model_dump()
     )
     
     contract_doc = contract.model_dump()
-    contract_doc[\"created_at"] = contract_doc[\"created_at"].isoformat()
+    contract_doc[\"created_at\"] = contract_doc[\"created_at\"].isoformat()
     
     await db.contracts.insert_one(contract_doc)
     return contract
 
-@api_router.get(\"/contracts", response_model=List[Contract])
+@api_router.get(\"/contracts\", response_model=List[Contract])
 async def get_my_contracts(current_user: dict = Depends(get_current_user)):
-    if current_user[\"user_type"] == \"client\":
-        query = {\"client_id\": current_user[\"id"]}
+    if current_user[\"user_type\"] == \"client\":
+        query = {\"client_id\": current_user[\"id\"]}
     else:
-        query = {\"worker_id\": current_user[\"id"]}
+        query = {\"worker_id\": current_user[\"id\"]}
     
-    contracts = await db.contracts.find(query, {\"_id\": 0}).sort(\"created_at", -1).to_list(100)
+    contracts = await db.contracts.find(query, {\"_id\": 0}).sort(\"created_at\", -1).to_list(100)
     
     for contract in contracts:
-        if isinstance(contract[\"created_at"], str):
-            contract[\"created_at"] = datetime.fromisoformat(contract[\"created_at"])
-        if contract.get(\"start_date\") and isinstance(contract[\"start_date"], str):
-            contract[\"start_date"] = datetime.fromisoformat(contract[\"start_date"])
-        if contract.get(\"end_date\") and isinstance(contract[\"end_date"], str):
-            contract[\"end_date"] = datetime.fromisoformat(contract[\"end_date"])
+        if isinstance(contract[\"created_at\"], str):
+            contract[\"created_at\"] = datetime.fromisoformat(contract[\"created_at\"])
+        if contract.get(\"start_date\") and isinstance(contract[\"start_date\"], str):
+            contract[\"start_date\"] = datetime.fromisoformat(contract[\"start_date\"])
+        if contract.get(\"end_date\") and isinstance(contract[\"end_date\"], str):
+            contract[\"end_date\"] = datetime.fromisoformat(contract[\"end_date\"])
     
     return [Contract(**c) for c in contracts]
 
 @api_router.patch(\"/contracts/{contract_id}/escrow\")
 async def update_escrow_status(
     contract_id: str,
-    status: escrowed", \"released", \"disputed"],
+    status: Literal[\"escrowed\", \"released\", \"disputed\"],
     current_user: dict = Depends(get_current_user)
 ):
     contract = await db.contracts.find_one({\"id\": contract_id}, {\"_id\": 0})
@@ -650,7 +650,7 @@ async def update_escrow_status(
         raise HTTPException(status_code=404, detail=\"Contract not found\")
     
     # Only client can deposit to escrow, either party can release/dispute
-    if status == \"escrowed\" and current_user[\"id"] != contract[\"client_id"]:
+    if status == \"escrowed\" and current_user[\"id\"] != contract[\"client_id\"]:
         raise HTTPException(status_code=403, detail=\"Only client can deposit to escrow\")
     
     await db.contracts.update_one({\"id\": contract_id}, {\"$set\": {\"payment_status\": status}})
@@ -658,46 +658,46 @@ async def update_escrow_status(
 
 # ===== REVIEW ROUTES =====
 
-@api_router.post(\"/reviews", response_model=Review)
+@api_router.post(\"/reviews\", response_model=Review)
 async def create_review(review_data: ReviewCreate, current_user: dict = Depends(get_current_user)):
     # Verify contract exists and user is part of it
     contract = await db.contracts.find_one({\"id\": review_data.contract_id}, {\"_id\": 0})
     if not contract:
         raise HTTPException(status_code=404, detail=\"Contract not found\")
     
-    if current_user[\"id"] not in [contract[\"client_id"], contract[\"worker_id"]]:
+    if current_user[\"id\"] not in [contract[\"client_id\"], contract[\"worker_id\"]]:
         raise HTTPException(status_code=403, detail=\"You are not part of this contract\")
     
     # Check if already reviewed
     existing = await db.reviews.find_one({
         \"contract_id\": review_data.contract_id,
-        \"reviewer_id\": current_user[\"id"]
+        \"reviewer_id\": current_user[\"id\"]
     }, {\"_id\": 0})
     if existing:
         raise HTTPException(status_code=400, detail=\"You have already reviewed this contract\")
     
     review = Review(
-        reviewer_id=current_user[\"id"],
+        reviewer_id=current_user[\"id\"],
         **review_data.model_dump()
     )
     
     review_doc = review.model_dump()
-    review_doc[\"created_at"] = review_doc[\"created_at"].isoformat()
+    review_doc[\"created_at\"] = review_doc[\"created_at\"].isoformat()
     
     await db.reviews.insert_one(review_doc)
     return review
 
 @api_router.get(\"/reviews/user/{user_id}\")
 async def get_user_reviews(user_id: str):
-    reviews = await db.reviews.find({\"reviewee_id\": user_id}, {\"_id\": 0}).sort(\"created_at", -1).to_list(100)
+    reviews = await db.reviews.find({\"reviewee_id\": user_id}, {\"_id\": 0}).sort(\"created_at\", -1).to_list(100)
     
     for review in reviews:
-        if isinstance(review[\"created_at"], str):
-            review[\"created_at"] = datetime.fromisoformat(review[\"created_at"])
+        if isinstance(review[\"created_at\"], str):
+            review[\"created_at\"] = datetime.fromisoformat(review[\"created_at\"])
     
     # Calculate average rating
     if reviews:
-        avg_rating = sum(r[\"rating"] for r in reviews) / len(reviews)
+        avg_rating = sum(r[\"rating\"] for r in reviews) / len(reviews)
     else:
         avg_rating = 0
     

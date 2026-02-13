@@ -28,15 +28,15 @@ module.exports = {
           foreground: "#FFFFFF",
         },
         secondary: {
-          DEFAULT: "#007A4D",
+          DEFAULT: "#007749",
           foreground: "#FFFFFF",
         },
         accent: {
-          DEFAULT: "#FFB612",
+          DEFAULT: "#FFB81C",
           foreground: "#000000",
         },
         destructive: {
-          DEFAULT: "#DE3831",
+          DEFAULT: "#E03C31",
           foreground: "hsl(var(--destructive-foreground))",
         },
         muted: {
@@ -50,6 +50,14 @@ module.exports = {
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
+        },
+        saflag: {
+          green: "#007749",
+          black: "#000000",
+          white: "#FFFFFF",
+          gold: "#FFB81C",
+          red: "#E03C31",
+          blue: "#002395",
         },
       },
       borderRadius: {

@@ -443,6 +443,9 @@ class SkillBridgeAPITester:
         print("🚀 Starting SkillBridge API Tests...")
         print(f"Testing against: {self.base_url}")
         
+        # Test comprehensive categories
+        self.test_categories_comprehensive()
+        
         # Test authentication first
         self.test_auth_endpoints()
         

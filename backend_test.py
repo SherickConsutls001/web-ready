@@ -356,6 +356,68 @@ class SkillBridgeAPITester:
             headers={'Authorization': f'Bearer {self.client_token}'}
         )
 
+    def test_categories_comprehensive(self):
+        """Test comprehensive categories functionality"""
+        print("\n📂 Testing Categories Comprehensive...")
+        
+        # Test categories endpoint
+        success, response = self.run_test(
+            "Get Categories",
+            "GET",
+            "categories",
+            200
+        )
+        
+        if success and response:
+            # Check for all 12 expected categories
+            expected_categories = [
+                "handy_work", "development_it", "ai_services", "data_science", 
+                "design_creative", "writing_translation", "sales_marketing", 
+                "admin_support", "finance_accounting", "hr_training", 
+                "legal", "engineering_architecture"
+            ]
+            
+            missing_categories = []
+            for cat in expected_categories:
+                if cat not in response:
+                    missing_categories.append(cat)
+            
+            if missing_categories:
+                self.log_test("All 12 Categories Present", False, f"Missing: {missing_categories}")
+            else:
+                self.log_test("All 12 Categories Present", True)
+            
+            # Check category structure
+            for cat_key, cat_data in response.items():
+                if not all(key in cat_data for key in ["name", "description", "subcategories"]):
+                    self.log_test(f"Category {cat_key} Structure", False, "Missing required fields")
+                else:
+                    self.log_test(f"Category {cat_key} Structure", True)
+                
+                if not isinstance(cat_data["subcategories"], list) or len(cat_data["subcategories"]) == 0:
+                    self.log_test(f"Category {cat_key} Subcategories", False, "No subcategories found")
+                else:
+                    self.log_test(f"Category {cat_key} Subcategories", True, f"{len(cat_data['subcategories'])} subcategories")
+            
+            # Test specific category content
+            if "development_it" in response:
+                dev_subcats = response["development_it"]["subcategories"]
+                expected_dev_subcats = ["Web Development", "Mobile App Development", "Cloud Engineering"]
+                found_subcats = [sub for sub in expected_dev_subcats if sub in dev_subcats]
+                if len(found_subcats) >= 2:
+                    self.log_test("Development & IT Subcategories Content", True)
+                else:
+                    self.log_test("Development & IT Subcategories Content", False, f"Expected subcategories not found")
+            
+            if "ai_services" in response:
+                ai_subcats = response["ai_services"]["subcategories"]
+                expected_ai_subcats = ["AI Model Development", "Machine Learning", "Chatbot Development"]
+                found_subcats = [sub for sub in expected_ai_subcats if sub in ai_subcats]
+                if len(found_subcats) >= 2:
+                    self.log_test("AI Services Subcategories Content", True)
+                else:
+                    self.log_test("AI Services Subcategories Content", False, f"Expected subcategories not found")
+
     def test_static_endpoints(self):
         """Test static/utility endpoints"""
         print("\n📊 Testing Static Endpoints...")

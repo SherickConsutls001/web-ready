@@ -164,16 +164,16 @@ export default function Homepage({ user }) {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <Card className="border-slate-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
-              <CardContent className="p-8">
+              <CardContent className="p-8 flex flex-col h-full">
                 <div className="w-16 h-16 bg-saflag-blue/10 rounded-full flex items-center justify-center mb-6">
                   <Briefcase className="w-8 h-8 text-saflag-blue" />
                 </div>
                 <h3 className="text-3xl font-bold font-outfit text-slate-900 mb-4">Professional Services</h3>
-                <p className="text-slate-600 mb-6 text-lg leading-relaxed">
+                <p className="text-slate-600 mb-6 text-lg leading-relaxed flex-grow">
                   Hire experienced developers, designers, recruiters, virtual assistants, accountants, customer support agents, and other professionals for remote freelance, contract, or full-time roles.
                 </p>
-                <Link to="/categories">
-                  <Button className="bg-saflag-blue hover:bg-saflag-blue/90 text-white rounded-full w-full py-6 text-lg">
+                <Link to="/categories" className="mt-auto">
+                  <Button className="bg-saflag-blue hover:bg-saflag-blue/90 text-white rounded-lg w-full py-3 text-base">
                     Explore Professional Talent
                   </Button>
                 </Link>
@@ -181,16 +181,16 @@ export default function Homepage({ user }) {
             </Card>
 
             <Card className="border-slate-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
-              <CardContent className="p-8">
+              <CardContent className="p-8 flex flex-col h-full">
                 <div className="w-16 h-16 bg-saflag-green/10 rounded-full flex items-center justify-center mb-6">
                   <Wrench className="w-8 h-8 text-saflag-green" />
                 </div>
                 <h3 className="text-3xl font-bold font-outfit text-slate-900 mb-4">Handy Work Services</h3>
-                <p className="text-slate-600 mb-6 text-lg leading-relaxed">
+                <p className="text-slate-600 mb-6 text-lg leading-relaxed flex-grow">
                   Find trusted local service providers including cleaners, electricians, plumbers, movers, handymen, and maintenance professionals.
                 </p>
-                <Link to="/categories">
-                  <Button className="bg-saflag-green hover:bg-saflag-green/90 text-white rounded-full w-full py-6 text-lg">
+                <Link to="/categories" className="mt-auto">
+                  <Button className="bg-saflag-green hover:bg-saflag-green/90 text-white rounded-lg w-full py-3 text-base">
                     Explore Local Services
                   </Button>
                 </Link>

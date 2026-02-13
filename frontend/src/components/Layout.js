@@ -76,6 +76,7 @@ export default function Layout({ children, user }) {
                       Login
                     </Button>
                   </Link>
+                  <div className="w-3"></div>
                   <Link to="/login?type=signup" data-testid="nav-signup-link">
                     <Button className="bg-primary hover:bg-primary/90 text-white rounded-full shadow-lg">
                       Sign Up

@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import SkillBridgeLogo from "@/components/SkillBridgeLogo";
 
 export default function Layout({ children, user }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -20,9 +21,7 @@ export default function Layout({ children, user }) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <Link to="/" className="flex items-center space-x-3" data-testid="nav-logo">
-              <div className="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xl">SB</span>
-              </div>
+              <SkillBridgeLogo className="w-10 h-10" />
               <span className="text-2xl font-bold font-outfit text-slate-900">SkillBridge</span>
             </Link>
 

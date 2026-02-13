@@ -25,7 +25,15 @@ export default function Pricing({ user }) {
     }
   };
 
-  if (!pricingData) return null;
+  if (!pricingData) {
+    return (
+      <Layout user={user}>
+        <div className="bg-slate-50 min-h-screen py-12 flex items-center justify-center">
+          <p className="text-slate-600">Loading pricing...</p>
+        </div>
+      </Layout>
+    );
+  }
 
   return (
     <Layout user={user}>

@@ -280,10 +280,24 @@ async def get_workers(category: Optional[str] = None, skills: Optional[str] = No
         query["location"] = {"$regex": location, "$options": "i"}
     
     workers = await db.worker_profiles.find(query, {"_id": 0}).to_list(100)
+    
+    # Filter out workers with invalid categories and convert datetime
+    valid_workers = []
+    valid_categories = {"handy_work", "development_it", "ai_services", "data_science", "design_creative", 
+                       "writing_translation", "sales_marketing", "admin_support", "finance_accounting", 
+                       "hr_training", "legal", "engineering_architecture"}
+    
     for worker in workers:
-        if isinstance(worker["created_at"], str):
+        if isinstance(worker.get("created_at"), str):
             worker["created_at"] = datetime.fromisoformat(worker["created_at"])
-    return [WorkerProfile(**w) for w in workers]
+        
+        # Skip workers with old/invalid categories
+        if worker.get("category") not in valid_categories:
+            continue
+            
+        valid_workers.append(WorkerProfile(**worker))
+    
+    return valid_workers
 
 @api_router.get("/workers/{worker_id}", response_model=WorkerProfile)
 async def get_worker_by_id(worker_id: str):

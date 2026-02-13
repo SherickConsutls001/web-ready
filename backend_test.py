@@ -136,7 +136,7 @@ class SkillBridgeAPITester:
             print("❌ Skipping worker profile tests - no worker token")
             return
 
-        # Create worker profile
+        # Create worker profile with new categories
         profile_data = {
             "title": "Senior Software Developer",
             "bio": "Experienced full-stack developer with 5+ years experience",
@@ -144,7 +144,7 @@ class SkillBridgeAPITester:
             "hourly_rate": 450.0,
             "experience_years": 5,
             "location": "Cape Town, South Africa",
-            "category": "professional_services",
+            "category": "development_it",
             "portfolio_links": ["https://github.com/testuser", "https://portfolio.test.com"]
         }
         

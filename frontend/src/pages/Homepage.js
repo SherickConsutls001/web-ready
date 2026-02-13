@@ -184,6 +184,25 @@ export default function Homepage({ user }) {
       {/* Why South Africa Section */}
       <section className="py-16 md:py-24 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Platform Protection Notice */}
+          <div className="bg-gradient-to-r from-saflag-blue to-saflag-green text-white rounded-2xl p-8 mb-12">
+            <div className="flex items-start gap-4">
+              <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
+                <span className="text-2xl">🛡️</span>
+              </div>
+              <div>
+                <h3 className="text-2xl font-bold font-outfit mb-2">Your Protection, Our Priority</h3>
+                <p className="text-blue-100 mb-4">All payments secured through escrow, communication monitored for safety, and comprehensive dispute resolution.</p>
+                <ul className="space-y-2 text-sm text-blue-50">
+                  <li>✓ All payments held in secure escrow until work completion</li>
+                  <li>✓ Communication stays on platform for your protection</li>
+                  <li>✓ Build reputation that follows you - verified reviews & ratings</li>
+                  <li>✓ Contract templates & legal protection included</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-bold font-outfit text-slate-900 mb-4" data-testid="why-sa-heading">
               Why Choose South African Talent?

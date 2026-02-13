@@ -1,0 +1,140 @@
+{
+  "design_system": {
+    "identity": {
+      "name": "SkillBridge",
+      "tagline": "Connecting South Africa's Best Talent with the World",
+      "tone": "Professional, Trustworthy, Vibrant, Efficient",
+      "theme_mode": "light"
+    },
+    "typography": {
+      "font_family": {
+        "heading": "Outfit, sans-serif",
+        "body": "Inter, sans-serif",
+        "mono": "JetBrains Mono, monospace"
+      },
+      "scale": {
+        "h1": "text-5xl md:text-6xl font-bold tracking-tight",
+        "h2": "text-4xl md:text-5xl font-semibold tracking-tight",
+        "h3": "text-2xl md:text-3xl font-semibold",
+        "body_lg": "text-lg leading-relaxed",
+        "body_base": "text-base leading-relaxed",
+        "caption": "text-sm text-muted-foreground"
+      }
+    },
+    "colors": {
+      "palette": {
+        "primary": {
+          "DEFAULT": "#002395",
+          "foreground": "#FFFFFF",
+          "description": "Deep South African Blue - Trust & Professionalism"
+        },
+        "secondary": {
+          "DEFAULT": "#007A4D",
+          "foreground": "#FFFFFF",
+          "description": "South African Green - Growth & Handy Work"
+        },
+        "accent": {
+          "DEFAULT": "#FFB612",
+          "foreground": "#000000",
+          "description": "South African Gold - Premium & Highlights"
+        },
+        "destructive": {
+          "DEFAULT": "#DE3831",
+          "foreground": "#FFFFFF",
+          "description": "South African Red - Alerts & Errors"
+        },
+        "background": "#FFFFFF",
+        "foreground": "#0F172A",
+        "muted": "#F1F5F9",
+        "border": "#E2E8F0"
+      },
+      "usage": {
+        "primary_action": "bg-primary text-primary-foreground hover:bg-primary/90",
+        "secondary_action": "bg-secondary text-secondary-foreground hover:bg-secondary/90",
+        "accent_highlight": "text-accent font-medium",
+        "section_bg": "bg-slate-50"
+      }
+    },
+    "components": {
+      "buttons": {
+        "default": "rounded-full font-medium transition-all active:scale-95",
+        "primary": "bg-[#002395] text-white hover:bg-[#001a70] shadow-lg shadow-blue-900/20",
+        "secondary": "bg-[#007A4D] text-white hover:bg-[#00633e] shadow-lg shadow-green-900/20",
+        "outline": "border-2 border-[#002395] text-[#002395] hover:bg-blue-50"
+      },
+      "cards": {
+        "base": "bg-white rounded-xl border border-slate-100 shadow-sm hover:shadow-md transition-all duration-300",
+        "interactive": "hover:-translate-y-1 hover:border-blue-100"
+      },
+      "inputs": {
+        "default": "rounded-lg border-slate-200 focus:ring-2 focus:ring-[#002395] focus:border-transparent"
+      }
+    },
+    "layout": {
+      "container": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+      "section_spacing": "py-16 md:py-24",
+      "grid_bento": "grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8",
+      "grid_cards": "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+    },
+    "visual_enhancers": {
+      "gradients": {
+        "hero": "bg-gradient-to-br from-slate-50 via-white to-blue-50",
+        "brand": "bg-gradient-to-r from-[#002395] to-[#007A4D]"
+      },
+      "shadows": {
+        "soft": "shadow-[0_8px_30px_rgb(0,0,0,0.04)]",
+        "hover": "shadow-[0_8px_30px_rgb(0,0,0,0.12)]"
+      },
+      "borders": {
+        "subtle": "border border-slate-100"
+      }
+    }
+  },
+  "assets": {
+    "images": {
+      "hero_main": {
+        "url": "https://images.unsplash.com/photo-1758691736975-9f7f643d178e?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2MDV8MHwxfHNlYXJjaHwxfHxkaXZlcnNlJTIwY29ycG9yYXRlJTIwYnVzaW5lc3MlMjB0ZWFtJTIwbWVldGluZyUyMG1vZGVybiUyMG9mZmljZXxlbnwwfHx8fDE3NzA5OTMwNzN8MA&ixlib=rb-4.1.0&q=85",
+        "alt": "Diverse professional team in modern office",
+        "usage": "Homepage Hero Section"
+      },
+      "handy_work": {
+        "url": "https://images.unsplash.com/photo-1749532125405-70950966b0e5?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMzJ8MHwxfHNlYXJjaHw0fHxwcm9mZXNzaW9uYWwlMjBwbHVtYmVyJTIwZWxlY3RyaWNpYW4lMjBjbGVhbmVyJTIwd29ya2VyfGVufDB8fHx8MTc3MDk5MzA3N3ww&ixlib=rb-4.1.0&q=85",
+        "alt": "Professional plumber working",
+        "usage": "Handy Work Category Card"
+      },
+      "professional_services": {
+        "url": "https://images.unsplash.com/photo-1758518731468-98e90ffd7430?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2MDV8MHwxfHNlYXJjaHwyfHxkaXZlcnNlJTIwY29ycG9yYXRlJTIwYnVzaW5lc3MlMjB0ZWFtJTIwbWVldGluZyUyMG1vZGVybiUyMG9mZmljZXxlbnwwfHx8fDE3NzA5OTMwNzN8MA&ixlib=rb-4.1.0&q=85",
+        "alt": "Corporate professionals meeting",
+        "usage": "Professional Services Category Card"
+      },
+      "context_bg": {
+        "url": "https://images.unsplash.com/photo-1577948000111-9c970dfe3743?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzNDR8MHwxfHNlYXJjaHwyfHxkaXZlcnNlJTIwc291dGglMjBhZnJpY2FuJTIwcHJvZmVzc2lvbmFscyUyMG9mZmljZSUyMG1lZXRpbmd8ZW58MHx8fHwxNzcwOTkzMDQ0fDA&ixlib=rb-4.1.0&q=85",
+        "alt": "Johannesburg Skyline",
+        "usage": "Footer Background or About Us Hero"
+      }
+    },
+    "icons": {
+      "library": "lucide-react",
+      "style": "Stroke width 1.5px, size 20px or 24px"
+    }
+  },
+  "implementation_guide": {
+    "steps": [
+      "1. Install dependencies: lucide-react, framer-motion, clsx, tailwind-merge",
+      "2. Update tailwind.config.js with the new color palette (primary, secondary, accent)",
+      "3. Create a 'Layout' component that wraps pages with Navbar and Footer",
+      "4. Build the Homepage with Hero, Categories (Bento Grid), and Featured Jobs",
+      "5. Implement the 'Find Work' page with a sidebar filter and job list",
+      "6. Implement the 'Hire Talent' page with worker profile cards",
+      "7. Ensure all interactive elements have data-testid attributes"
+    ],
+    "universal_rules": [
+      "Use 'Outfit' font for all headings (h1-h3) and 'Inter' for body text.",
+      "Do NOT use pure black (#000000) for text; use slate-900 (#0F172A) or slate-700 (#334155).",
+      "Buttons must have a subtle hover lift effect (translate-y-[-2px]).",
+      "Use generous padding (py-16 or py-24) for section spacing.",
+      "Ensure mobile responsiveness: stack grids to 1 column on mobile.",
+      "Use the 'South African Flag' colors tastefully - do not create a rainbow mess. Use Blue/Green as dominants, Gold/Red as accents."
+    ]
+  }
+}

@@ -65,7 +65,7 @@ class WorkerProfile(BaseModel):
     hourly_rate: float
     experience_years: int
     location: str
-    category: Literal["handy_work", "professional_services"]
+    category: Literal["handy_work", "development_it", "ai_services", "data_science", "design_creative", "writing_translation", "sales_marketing", "admin_support", "finance_accounting", "hr_training", "legal", "engineering_architecture"]
     portfolio_links: List[str] = []
     avatar_url: Optional[str] = None
     featured: bool = False
@@ -78,7 +78,7 @@ class WorkerProfileCreate(BaseModel):
     hourly_rate: float
     experience_years: int
     location: str
-    category: Literal["handy_work", "professional_services"]
+    category: Literal["handy_work", "development_it", "ai_services", "data_science", "design_creative", "writing_translation", "sales_marketing", "admin_support", "finance_accounting", "hr_training", "legal", "engineering_architecture"]
     portfolio_links: List[str] = []
     avatar_url: Optional[str] = None
 

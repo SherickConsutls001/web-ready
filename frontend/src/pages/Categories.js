@@ -1,7 +1,7 @@
 import Layout from "@/components/Layout";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Wrench, Code, Brain, Database, Palette, FileText, TrendingUp, Headphones, DollarSign, Users, Scale, Ruler } from "lucide-react";
+import { Code, Brain, Database, Palette, FileText, TrendingUp, Headphones, DollarSign, Users, Scale, Ruler } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -10,7 +10,6 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
 const categoryIcons = {
-  handy_work: Wrench,
   development_it: Code,
   ai_services: Brain,
   data_science: Database,
@@ -25,7 +24,6 @@ const categoryIcons = {
 };
 
 const categoryColors = {
-  handy_work: "secondary",
   development_it: "primary",
   ai_services: "accent",
   data_science: "primary",
@@ -50,7 +48,9 @@ export default function Categories({ user }) {
   const fetchCategories = async () => {
     try {
       const response = await axios.get(`${API}/categories`);
-      setCategories(response.data);
+      // Filter out handy_work
+      const { handy_work, ...professionalCategories } = response.data;
+      setCategories(professionalCategories);
     } catch (error) {
       console.error("Failed to fetch categories:", error);
     } finally {
@@ -60,9 +60,9 @@ export default function Categories({ user }) {
 
   const getColorClass = (color) => {
     const colors = {
-      primary: "bg-primary/10 text-primary",
-      secondary: "bg-secondary/10 text-secondary",
-      accent: "bg-accent/10 text-accent"
+      primary: "bg-saflag-blue/10 text-saflag-blue",
+      secondary: "bg-saflag-green/10 text-saflag-green",
+      accent: "bg-saflag-gold/10 text-saflag-gold"
     };
     return colors[color] || colors.primary;
   };
@@ -83,7 +83,7 @@ export default function Categories({ user }) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-bold font-outfit text-slate-900 mb-4" data-testid="categories-heading">
-              Browse by Category
+              Browse Professional Categories
             </h1>
             <p className="text-lg text-slate-600">Find the perfect professional for your needs across all industries</p>
           </div>
@@ -108,7 +108,7 @@ export default function Categories({ user }) {
                   </div>
                   <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                     {category.subcategories.map((subcategory, idx) => (
-                      <Card key={idx} className="hover:shadow-lg transition-all duration-300 hover:-translate-y-1 cursor-pointer" data-testid={`subcategory-${subcategory.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}>
+                      <Card key={idx} className="border-slate-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 cursor-pointer" data-testid={`subcategory-${subcategory.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}>
                         <CardContent className="p-4 text-center">
                           <h3 className="font-semibold text-slate-900 text-sm">{subcategory}</h3>
                         </CardContent>
@@ -123,7 +123,7 @@ export default function Categories({ user }) {
           {/* CTA */}
           <div className="text-center mt-12">
             <Link to="/hire-talent">
-              <Button className="bg-primary hover:bg-primary/90 text-white rounded-full px-8 py-6 text-lg" data-testid="find-talent-button">
+              <Button className="bg-[#14A800] hover:bg-[#14A800]/90 text-white rounded-full px-12 py-6 text-lg shadow-lg" data-testid="find-talent-button">
                 Find Talent Now
               </Button>
             </Link>

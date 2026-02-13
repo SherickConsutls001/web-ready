@@ -187,11 +187,18 @@ class SkillBridgeAPITester:
             200
         )
         
-        # Get workers with filters
+        # Get workers with filters - test new categories
         self.run_test(
-            "Get Workers by Category",
+            "Get Workers by Development & IT Category",
             "GET",
-            "workers?category=professional_services",
+            "workers?category=development_it",
+            200
+        )
+        
+        self.run_test(
+            "Get Workers by AI Services Category",
+            "GET",
+            "workers?category=ai_services",
             200
         )
 

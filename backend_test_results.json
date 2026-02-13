@@ -1,9 +1,149 @@
 {
-  "timestamp": "2026-02-13T14:43:48.834179",
-  "total_tests": 21,
-  "passed_tests": 21,
-  "success_rate": 100.0,
+  "timestamp": "2026-02-13T15:09:23.816366",
+  "total_tests": 51,
+  "passed_tests": 49,
+  "success_rate": 96.07843137254902,
   "results": [
+    {
+      "test": "Get Categories",
+      "success": true,
+      "details": ""
+    },
+    {
+      "test": "All 12 Categories Present",
+      "success": true,
+      "details": ""
+    },
+    {
+      "test": "Category handy_work Structure",
+      "success": true,
+      "details": ""
+    },
+    {
+      "test": "Category handy_work Subcategories",
+      "success": true,
+      "details": "8 subcategories"
+    },
+    {
+      "test": "Category development_it Structure",
+      "success": true,
+      "details": ""
+    },
+    {
+      "test": "Category development_it Subcategories",
+      "success": true,
+      "details": "13 subcategories"
+    },
+    {
+      "test": "Category ai_services Structure",
+      "success": true,
+      "details": ""
+    },
+    {
+      "test": "Category ai_services Subcategories",
+      "success": true,
+      "details": "7 subcategories"
+    },
+    {
+      "test": "Category data_science Structure",
+      "success": true,
+      "details": ""
+    },
+    {
+      "test": "Category data_science Subcategories",
+      "success": true,
+      "details": "8 subcategories"
+    },
+    {
+      "test": "Category design_creative Structure",
+      "success": true,
+      "details": ""
+    },
+    {
+      "test": "Category design_creative Subcategories",
+      "success": true,
+      "details": "10 subcategories"
+    },
+    {
+      "test": "Category writing_translation Structure",
+      "success": true,
+      "details": ""
+    },
+    {
+      "test": "Category writing_translation Subcategories",
+      "success": true,
+      "details": "8 subcategories"
+    },
+    {
+      "test": "Category sales_marketing Structure",
+      "success": true,
+      "details": ""
+    },
+    {
+      "test": "Category sales_marketing Subcategories",
+      "success": true,
+      "details": "9 subcategories"
+    },
+    {
+      "test": "Category admin_support Structure",
+      "success": true,
+      "details": ""
+    },
+    {
+      "test": "Category admin_support Subcategories",
+      "success": true,
+      "details": "8 subcategories"
+    },
+    {
+      "test": "Category finance_accounting Structure",
+      "success": true,
+      "details": ""
+    },
+    {
+      "test": "Category finance_accounting Subcategories",
+      "success": true,
+      "details": "6 subcategories"
+    },
+    {
+      "test": "Category hr_training Structure",
+      "success": true,
+      "details": ""
+    },
+    {
+      "test": "Category hr_training Subcategories",
+      "success": true,
+      "details": "5 subcategories"
+    },
+    {
+      "test": "Category legal Structure",
+      "success": true,
+      "details": ""
+    },
+    {
+      "test": "Category legal Subcategories",
+      "success": true,
+      "details": "5 subcategories"
+    },
+    {
+      "test": "Category engineering_architecture Structure",
+      "success": true,
+      "details": ""
+    },
+    {
+      "test": "Category engineering_architecture Subcategories",
+      "success": true,
+      "details": "7 subcategories"
+    },
+    {
+      "test": "Development & IT Subcategories Content",
+      "success": true,
+      "details": ""
+    },
+    {
+      "test": "AI Services Subcategories Content",
+      "success": true,
+      "details": ""
+    },
     {
       "test": "Worker Registration",
       "success": true,
@@ -41,11 +181,16 @@
     },
     {
       "test": "Get All Workers",
+      "success": false,
+      "details": "Expected 200, got 520"
+    },
+    {
+      "test": "Get Workers by Development & IT Category",
       "success": true,
       "details": ""
     },
     {
-      "test": "Get Workers by Category",
+      "test": "Get Workers by AI Services Category",
       "success": true,
       "details": ""
     },
@@ -66,11 +211,16 @@
     },
     {
       "test": "Get All Jobs",
+      "success": false,
+      "details": "Expected 200, got 520"
+    },
+    {
+      "test": "Get Jobs by Development & IT Category",
       "success": true,
       "details": ""
     },
     {
-      "test": "Get Jobs by Category",
+      "test": "Get Jobs by AI Services Category",
       "success": true,
       "details": ""
     },

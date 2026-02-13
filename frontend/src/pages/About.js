@@ -161,7 +161,7 @@ export default function About({ user }) {
               Join Our Growing Community
             </h2>
             <p className="text-xl mb-8 text-blue-100">
-              Whether you're looking to hire or seeking opportunities, SkillBridge is your trusted partner.
+              Whether you're looking to hire or seeking opportunities, TalentBridge is your trusted partner.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/hire-talent" data-testid="cta-hire-button">

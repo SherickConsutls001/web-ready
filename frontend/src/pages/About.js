@@ -36,7 +36,7 @@ export default function About({ user }) {
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="prose prose-lg max-w-none">
               <p className="text-xl text-slate-700 leading-relaxed mb-6">
-                SkillBridge is a South Africa-based freelance and hiring marketplace built to connect skilled South African professionals with businesses around the world.
+                TalentBridge is a South Africa-based freelance and hiring marketplace built to connect skilled South African professionals with businesses around the world.
               </p>
               
               <p className="text-lg text-slate-600 leading-relaxed mb-6">

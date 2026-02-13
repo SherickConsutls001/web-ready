@@ -245,12 +245,12 @@ class SkillBridgeAPITester:
             print("❌ Skipping job tests - no client token")
             return
 
-        # Create job
+        # Create job with new categories
         job_data = {
             "title": "Full Stack Developer Needed",
             "description": "We need an experienced full-stack developer to build a modern web application using React and Node.js.",
-            "category": "professional_services",
-            "subcategory": "Software Developer",
+            "category": "development_it",
+            "subcategory": "Web Development",
             "budget_type": "hourly",
             "budget_amount": 400.0,
             "location": "Remote",

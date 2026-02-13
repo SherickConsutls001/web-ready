@@ -53,8 +53,8 @@ export default function Homepage({ user }) {
             </div>
             <div className="relative">
               <img
-                src="https://images.unsplash.com/photo-1758691736975-9f7f643d178e?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2MDV8MHwxfHNlYXJjaHwxfHxkaXZlcnNlJTIwY29ycG9yYXRlJTIwYnVzaW5lc3MlMjB0ZWFtJTIwbWVldGluZyUyMG1vZGVybiUyMG9mZmljZXxlbnwwfHx8fDE3NzA5OTMwNzN8MA&ixlib=rb-4.1.0&q=85"
-                alt="Professional team"
+                src="https://images.unsplash.com/photo-1624555130296-e551faf8969b?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1ODR8MHwxfHNlYXJjaHwxfHxtdWx0aXJhY2lhbCUyMGRpdmVyc2UlMjBwcm9mZXNzaW9uYWwlMjBidXNpbmVzcyUyMHRlYW0lMjBjb2xsYWJvcmF0aW9uJTIwaGFwcHl8ZW58MHx8fHwxNzcwOTk3MTQ3fDA&ixlib=rb-4.1.0&q=85"
+                alt="Diverse professional team collaborating"
                 className="rounded-2xl shadow-2xl"
                 data-testid="hero-image"
               />
